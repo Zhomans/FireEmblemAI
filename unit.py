@@ -13,7 +13,7 @@ class unit:
     def __init__(self, space = (1,1)):
         self.space = space
         self.attack = 10
-    def add_space(space):
+    def add_space(self, space):
         #units need to know what space they're on
         #need some way to make sure that units and spaces are always paired
         self.space = space
