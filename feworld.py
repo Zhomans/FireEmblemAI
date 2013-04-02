@@ -24,9 +24,14 @@ class fe_map(object):
 class space(object):
     #needs to know if there's a unit on it
     #type of terrain maybe can just be handled by inheriting? IDK
+<<<<<<< HEAD
     def __init__(self, x, y):
+=======
+    def __init__(self, terrain = terrain('dirt')):
+>>>>>>> Adding details
         #spaces start with no units by default
         #is null a thing in Python? I can't remember.
+        self.terrain = terrain
         self.unit = None
         self.x = x
         self.y = y
@@ -43,4 +48,14 @@ class space(object):
         return (self.x, self.y)
     def add_unit(self, unit):
         self.unit = unit
+        self.unit.space = self
 
+class terrain(object):
+
+    def __init__ (self, terrainType):
+        if (terrainType = 'dirt'):
+            self.moveMod = 0
+            self.evasionMod = 0
+        else:
+            self.moveMod = 0
+            self.evasionMod = 0
