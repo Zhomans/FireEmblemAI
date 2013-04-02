@@ -10,6 +10,7 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
+<<<<<<< HEAD
     def __init__(self, space = None):
         self.space = space
         self.attack = 10
@@ -28,3 +29,13 @@ class unit:
             self.space = space
         else:
             #error!!
+=======
+    def __init__(self, space = (1,1), hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry'):
+        self.space = space
+        self.hp = hp
+        self.attack = attack
+        self.defense = defense
+        self.move = move
+        self.unitType = unitType
+
+>>>>>>> Adding details
