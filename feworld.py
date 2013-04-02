@@ -39,8 +39,12 @@ class space(object):
             return "O"
         else:
             return "X"
-    def get_coordinates:
+    def get_coords:
         return (self.x, self.y)
+    def get_x:
+        return self.x
+    def get_y:
+        return self.y
     def add_unit(self, unit):
         self.unit = unit
 

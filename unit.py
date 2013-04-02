@@ -20,9 +20,11 @@ class unit:
         #need some way to make sure that units and spaces are always paired
         self.space = space
     def move(self, space):
-        deltax = abs(self.space.get_coords()[1] - space.get_coords()[1])
-        deltay = abs(self.space.get_coords()[2] - space.get_coords()[2])
+        deltax = abs(self.space.get_x() - space.get_x())
+        deltay = abs(self.space.get_y() - space.get_y())
         if (deltax + deltay) <= self.space:
+            self.space.add_unit(None)
+            space.add_unit(self)
             self.space = space
         else:
             #error!!
