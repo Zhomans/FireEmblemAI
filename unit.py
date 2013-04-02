@@ -10,12 +10,13 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
-<<<<<<< HEAD
-    def __init__(self, space = None):
+    def __init__(self, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry'):
         self.space = space
-        self.attack = 10
-        self.hp = 35
-        self.move = 5 #units can move 5 spaces by default
+        self.hp = hp
+        self.attack = attack
+        self.defense = defense
+        self.move = move
+        self.unitType = unitType
     def add_space(self, space):
         #units need to know what space they're on
         #need some way to make sure that units and spaces are always paired
@@ -29,13 +30,3 @@ class unit:
             self.space = space
         else:
             #error!!
-=======
-    def __init__(self, space = (1,1), hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry'):
-        self.space = space
-        self.hp = hp
-        self.attack = attack
-        self.defense = defense
-        self.move = move
-        self.unitType = unitType
-
->>>>>>> Adding details
