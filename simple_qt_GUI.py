@@ -6,6 +6,7 @@ class Example(QtGui.QWidget):
 	def __init__(self):
 		super(Example, self).__init__()
 		self.make_grid()
+		self.add_picture("dude.gif")
 		self.setGeometry(300, 300, 200, 190)
 		self.setWindowTitle('Toggle button')
 		self.show()
@@ -25,6 +26,15 @@ class Example(QtGui.QWidget):
 					self.make_square(x,y,color)
 				else:
 					self.make_square(x,y,color2)
+	def add_picture(self,pic):
+		pixmap = QtGui.QPixmap(pic)
+		self.lbl = QtGui.QLabel(self)
+		self.lbl.setPixmap(pixmap)
+		self.lbl.setGeometry(20,15,50,50)
+		self.lbl2=QtGui.QLabel(self)
+		self.lbl2.setText("<font color=black size=2>Brendan missed two white pixels</font>")		
+		self.lbl2.setGeometry(10,22,200,100)
+		self.lbl2.show()
 app = QtGui.QApplication(sys.argv)
 ex = Example()
 sys.exit(app.exec_())
