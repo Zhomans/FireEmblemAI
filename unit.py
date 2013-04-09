@@ -29,4 +29,5 @@ class unit:
             space.add_unit(self)
             self.space = space
         else:
+            pass
             #error!!
