@@ -15,3 +15,6 @@ for unit in units:
     #update with each unit
     #at the end, we'll go for the one with the most, right?
     #highest percentage, not most total.
+#loop through the dictionary of enemies that can be attacked?
+#need to save who can do the damage, I think....
+#augh
