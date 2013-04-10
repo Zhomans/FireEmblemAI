@@ -21,35 +21,6 @@ class fe_map(object):
     def get_space(self, x, y):
         return self.grid[y][x]
 
-class space(object):
-    #needs to know if there's a unit on it
-    #type of terrain maybe can just be handled by inheriting? IDK
-    def __init__(self, x, y, terrain = terrain('dirt')):
-        #spaces start with no units by default
-        #is null a thing in Python? I can't remember.
-        self.terrain = terrain
-        self.unit = None
-        self.x = x
-        self.y = y
-    def __str__(self):
-        return self.__repr__
-    def __repr__(self):
-        #apparently when you stick it in a list and print the list
-        #it doesn't use __str__
-        if(self.unit == None):
-            return "O"
-        else:
-            return "X"
-    def get_coords:
-        return (self.x, self.y)
-    def get_x:
-        return self.x
-    def get_y:
-        return self.y
-    def add_unit(self, unit):
-        self.unit = unit
-        self.unit.space = self
-
 class terrain(object):
     #Represents the terrain a space has
     #Has movement modifier(s) and an evasion modifier
@@ -61,3 +32,34 @@ class terrain(object):
         else:
             self.moveMod = 0
             self.evasionMod = 0
+
+
+class space(object):
+    #needs to know if there's a unit on it
+    #type of terrain maybe can just be handled by inheriting? IDK
+    def __init__(self, x, y, terrain = terrain('dirt')):
+        #spaces start with no units by default
+        #is null a thing in Python? I can't remember.
+        self.terrain = terrain
+        self.unit = None
+        self.x = x
+        self.y = y
+    def __str__(self):
+        return self.__repr__()
+    def __repr__(self):
+        #apparently when you stick it in a list and print the list
+        #it doesn't use __str__
+        if(self.unit == None):
+            return "O"
+        else:
+            return "X"
+    def get_coords(self):
+        return (self.x, self.y)
+    def get_x(self):
+        return self.x
+    def get_y(self):
+        return self.y
+    def add_unit(self, unit):
+        self.unit = unit
+        self.unit.space = self
+
