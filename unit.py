@@ -17,10 +17,8 @@ class unit:
         self.defense = defense
         self.move = move
         self.unitType = unitType
-    def add_space(self, space):
-        #units need to know what space they're on
-        #need some way to make sure that units and spaces are always paired
-        self.space = space
+    def get_space(self):
+        return self.space
     def move(self, space):
         deltax = abs(self.space.get_x() - space.get_x())
         deltay = abs(self.space.get_y() - space.get_y())
