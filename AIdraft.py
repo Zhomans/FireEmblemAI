@@ -2,6 +2,24 @@
 #But premature optimization is a bad idea!
 #So the goal is to get it working!
 
+#Ideally the list of attackers should have the space they'll attack from too
+#So that way we can easily check which ones we could replace
+#And then we don't need to figure out where to attack from
+#But that's even MORE dicts!
+#At this point I'm considering making a custom data type
+#The AI's units need to know:
+    #Who they can attack
+    #How much they can attack for
+    #Where they can attack from
+#From this, the AI must determine which combination does the most damage
+#How?
+#For enemy.possible_attackers.sort_by_attack
+#if enemy.attackers < 4 and unit.possible_spaces in enemy.available_spaces
+#enemy.possible_attackers.add(unit)
+#elif unit.damage_to(enemy) > enemy.weakest_attacker
+#and enemy.weakest_attacker.space in unit.possible_spaces
+#replace enemy.weakest_attacker with unit
+
 #units is a list of usable units the AI owns
 #actedUnits is a list of unusable units the AI owns
 
