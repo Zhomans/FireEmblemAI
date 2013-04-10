@@ -61,5 +61,6 @@ class space(object):
         return self.y
     def add_unit(self, unit):
         self.unit = unit
+        unit.space.unit = None
         self.unit.space = self
 
