@@ -1,11 +1,11 @@
 #units is a list of usable units the AI owns
-#used_units is a list of unusable units the AI owns
+#actedUnits is a list of unusable units the AI owns
 
 tot_damage = dict()
 attackers = dict()
 
 
-while units != []
+while length(units) != length(actedUnits):
 #while there are units that are usable
     for unit in units:
     #assuming there's also a list of enemy units
@@ -42,4 +42,8 @@ while units != []
                 weakest = enemy
 
     for unit in attackers[enemy]:
-        unit.attack(enemy)
+        #most of the arguments are currently placeholders
+        #we do need to figure out how to calculate where it needs to move
+        #...after this
+        move_Unit(unit, world, x, y, unit.get_space.get_x(), unit.get_space.get_y())
+        act_Unit(unit, world, enemy)
