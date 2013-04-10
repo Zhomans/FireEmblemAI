@@ -60,7 +60,9 @@ class space(object):
     def get_y(self):
         return self.y
     def add_unit(self, unit):
+        #if the unit came from somewhere, delete it from there
+        if unit.space != None:
+            unit.space.unit = None
         self.unit = unit
-        unit.space.unit = None
         self.unit.space = self
 
