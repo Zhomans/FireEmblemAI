@@ -27,14 +27,17 @@ class player(object):
 				print 'error unit has already been moved'
 
 		if (movable == 1):
-			for i in range(length(world_map.grid)):
-				for j in range(length(world_map.grid[i])):
+			for i in range(length(world_map.grid)):	#find the correct row
+				for j in range(length(world_map.grid[i])):	#find the correct column
 					if(world_map.grid[i][j].x == new_location_x && world.map.grid[i][j].y == new_location_y):
-						world_map.grid[i][j].add_unit(unit)
-						moved = 1
-						self.movedUnits.append(unit)
-						print 'unit moved successfully'
-						return
+						if(world_map.grid[i][j].unit == None) #check if space is free
+							world_map.grid[i][j].add_unit(unit) #move unit to proper space
+							moved = 1
+							self.movedUnits.append(unit)
+							print 'unit moved successfully'
+							return
+						else:
+							print 'error another unit is already occupying that space'
 #					if(world_map.grid[i][j].x == old_location_x && world.map.grid[i][j].y == old_location_y):
 #						world_map.grid[i][j].add_unit(None)
 #						reset = 1
