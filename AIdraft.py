@@ -36,6 +36,10 @@ while units != []
     for enemy in tot_damage.keys():
         if(tot_damage[enemy]/enemy.hp < tot_damage[weakest]/weakest.hp):
             weakest = enemy
+        elif (tot_damage[enemy]/enemy.hp == tot_damage[weakest]/weakest.hp):
+            #attack the one with less health if % same
+            if weakest.hp > enemy.hp:
+                weakest = enemy
 
     for unit in attackers[enemy]:
         unit.attack(enemy)
