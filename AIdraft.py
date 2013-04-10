@@ -14,8 +14,12 @@ while length(units) != length(actedUnits):
     for unit in units:
         for enemy in self.opponent.units:
             #check if enemy is in range
-            xdistance = abs(unit.get_space().get_x() - enemy.get_space().get_x())
-            ydistance = abs(unit.get_space().get_y() - enemy.get_space().get_y())
+            xdistance = abs(unit.get_x() - enemy.get_x())
+            ydistance = abs(unit.get_y() - enemy.get_y())
+            #oh, shoot, we should check if there's a unit standing
+            #the only place it can go....
+            #we probably should make a method "can move there?"
+
             if (xdistance + ydistance) <= unit.move:
                 if enemy in attackers.keys():
                     #if other units can attack the enemy, check if you should
@@ -51,9 +55,9 @@ while length(units) != length(actedUnits):
             if weakest.hp > enemy.hp:
                 weakest = enemy
 
-    for unit in attackers[enemy]:
+    for unit in attackers[weakest]:
         #most of the arguments are currently placeholders
         #we do need to figure out how to calculate where it needs to move
         #...after this
-        move_Unit(unit, world, x, y, unit.get_space.get_x(), unit.get_space.get_y())
-        act_Unit(unit, world, enemy)
+        move_Unit(unit, world, x, y, unit.get_x(), unit.get_y())
+        act_Unit(unit, world, weakest)
