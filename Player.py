@@ -6,11 +6,11 @@ import feworld.py
 import unit.py
 
 class player(object):
-	def __init__(self, player):
-		self.units = []
+	def __init__(self, player, units, name):
+		self.units = units
 		self.movedUnits = []
 		self.actedUnits = []
-		self.name = ''
+		self.name = name
 		self.opponent = player
 	def decide_turn():
 		#to be over written by the enemy and the AI classes
