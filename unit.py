@@ -19,6 +19,11 @@ class unit:
         self.unitType = unitType
     def get_space(self):
         return self.space
+    #doing unit.get_space().get_x() is driving me crazy....
+    def get_x(self):
+        return self.space.get_x()
+    def get_y(self):
+        return self.space.get_y()
     def move(self, space):
         deltax = abs(self.space.get_x() - space.get_x())
         deltay = abs(self.space.get_y() - space.get_y())
