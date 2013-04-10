@@ -27,4 +27,10 @@ class unit:
             space.add_unit(self)
             self.space = space
         else:
+            pass
             #error!!
+    def attack(self, enemy):
+        #I know this breaks proper getters and setters
+        #we can make it better later.
+        #we'll need to change it to add weapons anyway
+        enemy.hp = enemy.hp - (self.attack - enemy.defense)
