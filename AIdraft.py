@@ -38,5 +38,4 @@ while units != []
             weakest = enemy
 
     for unit in attackers[enemy]:
-        #go attack the enemy
-        #not sure how to do it
+        unit.attack(enemy)
