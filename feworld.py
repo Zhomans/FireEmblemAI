@@ -19,7 +19,7 @@ class fe_map(object):
         return self.grid.__str__()
 
     def get_space(self, x, y):
-        if(y <= len(self.grid) and x <= len(self.grid[y])):
+        if(y <= len(self.grid) and y >= 0 and x <= len(self.grid[y]) and x >= 0):
             #check that the space is in bounds
             return self.grid[y][x]
         else:
