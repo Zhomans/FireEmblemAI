@@ -66,9 +66,12 @@ while length(units) != length(actedUnits):
     weakest = enemy
 
     for enemy in damage.keys():
-        if(sum(damage[enemy])/enemy.hp < sum(damage[weakest])/weakest.hp):
+        #attack the one that you will do the highest % damage to
+        percent_e = sum(damage[enemy])/enemy.hp
+        percent_w = sum(damage[weakest]/weakest.hp
+        if(percent_e > percent_w):
             weakest = enemy
-        elif (sum(damage[enemy])/enemy.hp == sum(damage[weakest])/weakest.hp):
+        elif (percent_e == percent_w):
             #attack the one with less health if % same
             if weakest.hp > enemy.hp:
                 weakest = enemy

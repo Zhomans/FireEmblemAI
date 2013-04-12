@@ -19,7 +19,25 @@ class fe_map(object):
         return self.grid.__str__()
 
     def get_space(self, x, y):
-        return self.grid[y][x]
+        if(y <= len(self.grid) and x <= len(self.grid[y])):
+            #check that the space is in bounds
+            return self.grid[y][x]
+        else:
+            #if not, just return None
+            return None
+
+class terrain(object):
+    #Represents the terrain a space has
+    #Has movement modifier(s) and an evasion modifier
+    #Type of terrain is represented by a string
+    def __init__ (self, terrainType):
+        if (terrainType == 'dirt'):
+            self.moveMod = 0
+            self.evasionMod = 0
+        else:
+            self.moveMod = 0
+            self.evasionMod = 0
+
 
 class terrain(object):
     #Represents the terrain a space has
