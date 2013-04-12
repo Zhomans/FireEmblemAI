@@ -24,15 +24,15 @@ class unit:
         return self.space.get_x()
     def get_y(self):
         return self.space.get_y()
-    def move(self, space):
-        deltax = abs(self.space.get_x() - space.get_x())
-        deltay = abs(self.space.get_y() - space.get_y())
-        if (deltax + deltay) <= self.space:
-            self.space.add_unit(None)
+    def move_unit(self, space):
+        self.move_list = self.get_move_list() #This should go somewhere else.
+        if space in self.move_list:
             space.add_unit(self)
             self.space = space
+            self.move_list = self.get_move_list()
+            print "Moved to " + str(space)
         else:
-            pass
+            print "Can't move there!"
             #error!!
     def attack(self, enemy):
         #I know this breaks proper getters and setters
