@@ -50,10 +50,11 @@ class space(object):
     def __repr__(self):
         #apparently when you stick it in a list and print the list
         #it doesn't use __str__
-        if(self.unit == None):
-            return "O"
-        else:
-            return "X"
+        #if(self.unit == None):
+        #    return "O"
+        #else:
+        #    return "X"
+        return "(" + str(self.x) + "," + str(self.y) + ")"
     def get_coords(self):
         return (self.x, self.y)
     def get_x(self):
