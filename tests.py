@@ -13,6 +13,5 @@ print map
 print map.get_space(1,1)
 
 eliwood = unit()
-eliwood.add_space(map.get_space(1,1))
 map.get_space(1,1).add_unit(eliwood)
 print map
