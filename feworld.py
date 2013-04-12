@@ -13,7 +13,7 @@ class fe_map(object):
                 #create each row
                 #for now, it just makes a generic space
                 #we can use specific terrain later
-                self.grid[i].append(space(j,i))
+                self.grid[i].append(space(j,i,self))
 
     def __str__(self):
         return self.grid.__str__()
@@ -37,13 +37,14 @@ class terrain(object):
 class space(object):
     #needs to know if there's a unit on it
     #type of terrain maybe can just be handled by inheriting? IDK
-    def __init__(self, x, y, terrain = terrain('dirt')):
+    def __init__(self, x, y, world,terrain = terrain('dirt')):
         #spaces start with no units by default
         #is null a thing in Python? I can't remember.
         self.terrain = terrain
         self.unit = None
         self.x = x
         self.y = y
+        self.world = world
     def __str__(self):
         return self.__repr__()
     def __repr__(self):
