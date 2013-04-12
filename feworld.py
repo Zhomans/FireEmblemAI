@@ -39,6 +39,19 @@ class terrain(object):
             self.evasionMod = 0
 
 
+class terrain(object):
+    #Represents the terrain a space has
+    #Has movement modifier(s) and an evasion modifier
+    #Type of terrain is represented by a string
+    def __init__ (self, terrainType):
+        if (terrainType == 'dirt'):
+            self.moveMod = 0
+            self.evasionMod = 0
+        else:
+            self.moveMod = 0
+            self.evasionMod = 0
+
+
 class space(object):
     #needs to know if there's a unit on it
     #type of terrain maybe can just be handled by inheriting? IDK
