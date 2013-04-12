@@ -17,8 +17,6 @@ class player(object):
 
 
 	def move_Unit(self, unit, world_map, new_location_x, new_location_y, old_location_x, old_location_y):
-		int moved = 0
-#	int reset = 0
 		int movable = 1
 
 		for k in range(length(self.movedUnits)): #go through the list of moved units and see if it is legal to move
@@ -32,16 +30,11 @@ class player(object):
 					if(world_map.grid[i][j].x == new_location_x && world.map.grid[i][j].y == new_location_y):
 						if(world_map.grid[i][j].unit == None) #check if space is free
 							world_map.grid[i][j].add_unit(unit) #move unit to proper space
-							moved = 1
 							self.movedUnits.append(unit)
 							print('unit moved successfully')
 							return
 						else:
 							print('error another unit is already occupying that space')
-#					if(world_map.grid[i][j].x == old_location_x && world.map.grid[i][j].y == old_location_y):
-#						world_map.grid[i][j].add_unit(None)
-#						reset = 1
-#					if(reset == 1 && moved == 1):
 				if( i == length(world_map.grid) - 1):
 					print('an error has occured')
 				
