@@ -16,4 +16,7 @@ eliwood = unit()
 map.get_space(1,1).add_unit(eliwood)
 #print map
 
-eliwood.move_unit(map.get_space(4, 3))
+#eliwood.move_unit(map.get_space(4, 3))
+eliwood.move_list = eliwood.get_move_list()
+print eliwood.get_attack_list()
+#print eliwood.move_list

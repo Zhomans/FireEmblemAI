@@ -10,7 +10,7 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
-    def __init__(self, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry'):
+    def __init__(self, space = None, hp = 20, attack = 10, defense = 0, move = 2, unitType = 'infantry'):
         self.space = space
         self.hp = hp
         self.attack = attack
@@ -39,6 +39,13 @@ class unit:
         #we can make it better later.
         #we'll need to change it to add weapons anyway
         enemy.hp = enemy.hp - (self.attack - enemy.defense)
+        if enemy.hp <= 0:
+            enemy.die()
+
+    def die(self):
+        self.space.unit = None
+        self.space = None
+        #Add in "Unit disappears from player's unit list"
 
     def get_move_list(self):
         start_space = self.get_space()
@@ -51,36 +58,31 @@ class unit:
         while moves_remaining > 0:
             while recent_moves != []:
                 considered_space = recent_moves.pop(0)
-                top_space = world.get_space(considered_space.get_x(), considered_space.get_y()-1)
-                if top_space != None:
-                    if top_space.unit == None:
-                        if top_space not in move_list:
-                            move_list.append(top_space)
-                            next_moves.append(top_space)
-
-                right_space = world.get_space(considered_space.get_x()+1, considered_space.get_y())
-                if right_space != None:
-                    if right_space.unit == None:
-                        if right_space not in move_list:
-                            move_list.append(right_space)
-                            next_moves.append(right_space)
-
-                left_space = world.get_space(considered_space.get_x()-1, considered_space.get_y())
-                if left_space != None:
-                    if left_space.unit == None:
-                        if left_space not in move_list:
-                            move_list.append(left_space)
-                            next_moves.append(left_space)
-
-                bottom_space = world.get_space(considered_space.get_x(), considered_space.get_y()+1)
-                if bottom_space != None:
-                    if bottom_space.unit == None:
-                        if bottom_space not in move_list:
-                            move_list.append(bottom_space)
-                            next_moves.append(bottom_space)
+                for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
+                    space = world.get_space(considered_space.get_x()+move_poss[0], considered_space.get_y()+move_poss[1])
+                    if space != None:
+                        if space.unit == None:
+                            if space not in move_list:
+                                move_list.append(space)
+                                next_moves.append(space)
 
             moves_remaining -= 1
             recent_moves = next_moves
             next_moves = []
 
         return move_list
+
+    def get_attack_list(self):
+        world = self.space.world
+        move_list = self.move_list
+        attack_list = []
+        for space in move_list:
+            in_range = []
+            for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
+                in_range.append(world.get_space(space.get_x()+move_poss[0], space.get_y()+move_poss[1]))
+
+            for space_in_range in in_range:
+                if space_in_range != None and space_in_range not in attack_list:
+                    attack_list.append(space_in_range)
+
+        return attack_list
