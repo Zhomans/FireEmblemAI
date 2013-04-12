@@ -53,28 +53,28 @@ class unit:
                 considered_space = recent_moves.pop(0)
                 top_space = world.get_space(considered_space.get_x(), considered_space.get_y()-1)
                 if top_space != None:
-                    if top_space.unit != None:
+                    if top_space.unit == None:
                         if top_space not in move_list:
                             move_list.append(top_space)
                             next_moves.append(top_space)
 
                 right_space = world.get_space(considered_space.get_x()+1, considered_space.get_y())
                 if right_space != None:
-                    if right_space.unit != None:
+                    if right_space.unit == None:
                         if right_space not in move_list:
                             move_list.append(right_space)
                             next_moves.append(right_space)
 
                 left_space = world.get_space(considered_space.get_x()-1, considered_space.get_y())
                 if left_space != None:
-                    if left_space.unit != None:
+                    if left_space.unit == None:
                         if left_space not in move_list:
                             move_list.append(left_space)
                             next_moves.append(left_space)
 
                 bottom_space = world.get_space(considered_space.get_x(), considered_space.get_y()+1)
                 if bottom_space != None:
-                    if bottom_space.unit != None:
+                    if bottom_space.unit == None:
                         if bottom_space not in move_list:
                             move_list.append(bottom_space)
                             next_moves.append(bottom_space)
