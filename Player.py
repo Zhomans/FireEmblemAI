@@ -37,20 +37,7 @@ class player(object):
 			print('error unit has already been moved')
 
 		if (movable == 1):
-			for i in range(len(world_map.grid)):	#find the correct row
-				for j in range(len(world_map.grid[i])):	#find the correct column
-					if(world_map.grid[i][j].x == new_location_x and world_map.grid[i][j].y == new_location_y):
-						if(world_map.grid[i][j].unit == None):
-							#check if space is free
-							world_map.grid[i][j].add_unit(unit)
-							#move unit to proper space
-							self.movedUnits.append(unit)
-							print('unit moved successfully')
-							return
-						else:
-							print('error another unit is already occupying that space')
-				if( i == len(world_map.grid) - 1):
-					print('an error has occured')
+			unit.move_unit(world_map.get_space(new_location_x, new_location_y))
 				
 	def act_Unit(self, unit, world_map, unit_to_attack):
 		#have the unit act and add it to the list of acting units
@@ -65,3 +52,10 @@ class player(object):
 			unit.attack_enemy(unit_to_attack)
 			self.actedUnits.append(unit)
 			print('unit has successfully attacked enemy unit')
+
+	def status(self):
+		for unit in self.units:
+			if unit.hp <= 0:
+				unit.die()
+				units.remove(unit)
+				print unit.name + " has died!"
