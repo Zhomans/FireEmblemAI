@@ -16,10 +16,13 @@ class fe_map(object):
                 self.grid[i].append(space(j,i,self))
 
     def __str__(self):
-        return self.grid.__str__()
+        rep = ""
+        for line in self.grid:
+            rep = rep+line.__str__()+"\n"
+        return rep
 
     def get_space(self, x, y):
-        if(y <= len(self.grid) and y >= 0 and x <= len(self.grid[y]) and x >= 0):
+        if(y < len(self.grid) and y >= 0 and x < len(self.grid[y]) and x >= 0):
             #check that the space is in bounds
             return self.grid[y][x]
         else:
