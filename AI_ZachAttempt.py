@@ -341,4 +341,5 @@ def computer_player(com, world):
             else:
                 print "What the heck?"
             com.act_Unit(move_next[0], world, optimal_target)
+        print optimal_target.space
     

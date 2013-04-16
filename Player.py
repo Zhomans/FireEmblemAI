@@ -58,5 +58,5 @@ class player(object):
 		for unit in self.units:
 			if unit.hp <= 0:
 				unit.die()
-				units.remove(unit)
+				self.units.remove(unit)
 				print unit.name + " has died!"

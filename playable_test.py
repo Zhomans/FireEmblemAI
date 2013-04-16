@@ -17,7 +17,7 @@ com = player()
 human = player(com, [eliwood, hector], "human", "human")
 com.initialize(human,[sonia, limstella],"com", "com")
 
-while(len(human.units) == 2 or len(com.units) == 2):
+while(len(human.units) == 2 and len(com.units) == 2):
     #run while no units have died
     while(len(human.movedUnits) != len(human.units)):
         #tell player what units can move.
@@ -41,9 +41,13 @@ while(len(human.units) == 2 or len(com.units) == 2):
         #Not sure where it makes more sense
         computer_player(com, level)
     #reset everything
+    human.status()
+    com.status()
     human.movedUnits = []
     human.actedUnits = []
     com.movedUnits = []
     com.actedUnits = []
-    human.status()
-    com.status()
+if len(human.units) != 2:
+    print "Computer wins!"
+else:
+    print "Human wins!"
