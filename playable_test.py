@@ -36,5 +36,5 @@ while(len(human.units) == 2 or len(com.units) == 2):
                 y = int(command[command.find(')')-1:command.find(')')])
                 human.move_Unit(unit,level,x,y)
         display(level)
-    while (len(com.units) != len(com.movedUnits)):
+    while (len(com.units) != len(com.actedUnits)):
         computer_player(com, level)

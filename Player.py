@@ -62,7 +62,6 @@ class player(object):
 				print('error that unit has already acted')
 
 		if(actable == 1):	#if it hasnt acted, make it act
-			if(k == len(self.actedUnits)- 1):
-				unit.attack(unit_to_attack)
-				self.actedUnits.append(unit)
-				print('unit has successfully attacked enemy unit')
+			unit.attack_enemy(unit_to_attack)
+			self.actedUnits.append(unit)
+			print('unit has successfully attacked enemy unit')

@@ -18,6 +18,10 @@ class unit:
         self.move = move
         self.unitType = unitType
         self.name = name
+    def __str__(self):
+        return self.name
+    def __repr__(self):
+        return self.name
     def get_space(self):
         return self.space
     #doing unit.get_space().get_x() is driving me crazy....
@@ -35,7 +39,7 @@ class unit:
         else:
             print "Can't move there!"
             #error!!
-    def attack(self, enemy):
+    def attack_enemy(self, enemy):
         #I know this breaks proper getters and setters
         #we can make it better later.
         #we'll need to change it to add weapons anyway
