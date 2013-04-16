@@ -17,5 +17,5 @@ def display(maps):
 					L=tk.Label(root,text='    ',bg='dark green')
 			else:
 				L = tk.Label(root, image = img)
-			L.grid(row=i,column=j)
+			L.grid(row=j,column=i)
 	root.mainloop()

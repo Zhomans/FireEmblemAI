@@ -7,13 +7,13 @@ class fe_map(object):
     #why doesn't python have 2d arrays? It makes me sad.
     def __init__(self, x=10, y=10):
         self.grid = []
-        for i in range(y):
+        for i in range(x):
             self.grid.append([])
-            for j in range(x):
+            for j in range(y):
                 #create each row
                 #for now, it just makes a generic space
                 #we can use specific terrain later
-                self.grid[i].append(space(j,i,self))
+                self.grid[i].append(space(i,j,self))
 
     def __str__(self):
         rep = ""
