@@ -7,6 +7,7 @@ def display(maps):
 	board=[[None]*10 for _ in range(10)]
 	counter=0
 	root=tk.Tk()
+	img = ImageTk.PhotoImage(Image.open('dude.gif'))
 	for i,row in enumerate(board):
 		for j,column in enumerate(row):
 			if (maps.grid[i][j].unit == None):
@@ -15,7 +16,6 @@ def display(maps):
 				else:
 					L=tk.Label(root,text='    ',bg='dark green')
 			else:
-				img = ImageTk.PhotoImage(Image.open('dude.gif'))
 				L = tk.Label(root, image = img)
 			L.grid(row=i,column=j)
 	root.mainloop()
