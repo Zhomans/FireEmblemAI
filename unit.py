@@ -36,9 +36,10 @@ class unit:
             self.space = space
             self.move_list = self.get_move_list()
             print "Moved to " + str(space)
+            return 0
         else:
             print "Can't move there!"
-            #error!!
+            return 1
     def attack_enemy(self, enemy):
         #I know this breaks proper getters and setters
         #we can make it better later.
