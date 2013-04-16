@@ -1,16 +1,21 @@
 def computer_player(com, world):
 
-    damage = dict()
-    enemies = dict()
-    enemy_attack = dict()
-    opponent = com.opponent
+    while len(com.units) != len(com.actedUnits):
+        damage = dict()
+        enemies = dict()
+        enemy_attack = dict()
+        opponent = com.opponent
 
-    for enemy in opponent.units:
-        enemies[enemy] = []
-        enemy_attack[enemy] = []
+        for enemy in opponent.units:
+            enemies[enemy] = []
+            enemy_attack[enemy] = []
 
-    available_units = com.units
-    while available_units != []:
+        available_units = list()
+        for unit in com.units:
+            if unit not in com.actedUnits:
+                available_units.append(unit)
+        print available_units
+
         for unit in available_units:
             #unit is of type unit
             unit.move_list = unit.get_move_list()
@@ -21,7 +26,7 @@ def computer_player(com, world):
                 if enemy.space in unit.attack_list:
                     surrounding_spaces = []
                     for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
-                        surrounding_space=world.get_space(enemy.space.get_x()+move_poss[0], enemy.space.get_y()+move_poss[1])
+                        surrounding_space=world.get_space(enemy.get_x()+move_poss[0], enemy.get_y()+move_poss[1])
                         if surrounding_space in unit.move_list:
                             #check which spaces the unit can attack the enemy from
                             surrounding_spaces.append(surrounding_space)
@@ -32,13 +37,13 @@ def computer_player(com, world):
 
         for enemy in opponent.units:
             #enemy is of type unit
-            top_space = world.get_space(enemy.space.get_x(), enemy.space.get_y()-1)
+            top_space = world.get_space(enemy.get_x(), enemy.get_y()-1)
             units_that_can_attack_top = []
-            bottom_space = world.get_space(enemy.space.get_x(), enemy.space.get_y()+1)
+            bottom_space = world.get_space(enemy.get_x(), enemy.get_y()+1)
             units_that_can_attack_bottom = []
-            left_space = world.get_space(enemy.space.get_x()-1, enemy.space.get_y())
+            left_space = world.get_space(enemy.get_x()-1, enemy.get_y())
             units_that_can_attack_left = []
-            right_space = world.get_space(enemy.space.get_x()+1, enemy.space.get_y())
+            right_space = world.get_space(enemy.get_x()+1, enemy.get_y())
             units_that_can_attack_right = []
 
             for unit in enemies[enemy]:
@@ -109,27 +114,27 @@ def computer_player(com, world):
                 #only loops if duplicates are found
                 final_attackers = True
 
-                if top_attacker == bottom_attacker and top_attacker != None:
+                if top_attacker == bottom_attacker and top_attacker != None and units_that_can_attack_top != [] and units_that_can_attack_bottom != []:
                     final_attackers = False
 
                     new_top_attacker = None
                     for unit in units_that_can_attack_top:
                         #unit is a list of a unit, an int (damage), and a list of spaces
                         if new_top_attacker == None:
-                            new_top_attacker = unit[0]
+                            new_top_attacker = unit
                         else:
-                            if unit[1] > new_top_attacker.damage:
-                                new_top_attacker = unit[0]
+                            if unit[1] > new_top_attacker[1]:
+                                new_top_attacker = unit
                 
                     new_bottom_attacker = None
                     for unit in units_that_can_attack_bottom:
                         if new_bottom_attacker == None:
-                            new_bottom_attacker = unit[0]
+                            new_bottom_attacker = unit
                         else:
-                            if unit[1] > new_bottom_attacker.damage:
-                                new_bottom_attacker = unit[0]
+                            if unit[1] > new_bottom_attacker[1]:
+                                new_bottom_attacker = unit
 
-                    if new_top_attacker.damage > new_bottom_attacker.damage:
+                    if new_top_attacker[1] > new_bottom_attacker[1]:
                         top_attacker = new_top_attacker
                         units_that_can_attack_top.remove(new_top_attacker)
                     else:
@@ -138,26 +143,26 @@ def computer_player(com, world):
 
             ###############################################################################################
 
-                if top_attacker == right_attacker and top_attacker != None:
+                if top_attacker == right_attacker and top_attacker != None and units_that_can_attack_top != [] and units_that_can_attack_right != []:
                     final_attackers = False
 
                     new_top_attacker = None
                     for unit in units_that_can_attack_top:
                         if new_top_attacker == None:
-                            new_top_attacker = unit[0]
+                            new_top_attacker = unit
                         else:
-                            if unit[1] > new_top_attacker.damage:
-                                new_top_attacker = unit[0]
+                            if unit[1] > new_top_attacker[1]:
+                                new_top_attacker = unit
                 
                     new_right_attacker = None
                     for unit in units_that_can_attack_right:
                         if new_right_attacker == None:
-                            new_right_attacker = unit[0]
+                            new_right_attacker = unit
                         else:
-                            if unit[1] > new_right_attacker.damage:
-                                new_right_attacker = unit[0]
+                            if unit[1] > new_right_attacker[1]:
+                                new_right_attacker = unit
 
-                    if new_top_attacker.damage > new_right_attacker.damage:
+                    if new_top_attacker[1] > new_right_attacker[1]:
                         top_attacker = new_top_attacker
                         units_that_can_attack_top.remove(new_top_attacker)
                     else:
@@ -166,26 +171,26 @@ def computer_player(com, world):
 
             ###############################################################################################
 
-                if top_attacker == left_attacker and top_attacker != None:
+                if top_attacker == left_attacker and top_attacker != None and units_that_can_attack_top != [] and units_that_can_attack_left != []:
                     final_attackers = False
 
                     new_top_attacker = None
                     for unit in units_that_can_attack_top:
                         if new_top_attacker == None:
-                            new_top_attacker = unit[0]
+                            new_top_attacker = unit
                         else:
-                            if unit[1] > new_top_attacker.damage:
-                                new_top_attacker = unit[0]
+                            if unit[1] > new_top_attacker[1]:
+                                new_top_attacker = unit
                 
                     new_left_attacker = None
                     for unit in units_that_can_attack_left:
                         if new_left_attacker == None:
-                            new_left_attacker = unit[0]
+                            new_left_attacker = unit
                         else:
-                            if unit[1] > new_left_attacker.damage:
-                                new_left_attacker = unit[0]
+                            if unit[1] > new_left_attacker[1]:
+                                new_left_attacker = unit
 
-                    if new_top_attacker.damage > new_left_attacker.damage:
+                    if new_top_attacker[1] > new_left_attacker[1]:
                         top_attacker = new_top_attacker
                         units_that_can_attack_top.remove(new_top_attacker)
                     else:
@@ -194,26 +199,26 @@ def computer_player(com, world):
 
             ###############################################################################################
 
-                if bottom_attacker == right_attacker and bottom_attacker != None:
+                if bottom_attacker == right_attacker and bottom_attacker != None and units_that_can_attack_bottom != [] and units_that_can_attack_right != []:
                     final_attackers = False
 
                     new_bottom_attacker = None
                     for unit in units_that_can_attack_bottom:
                         if new_bottom_attacker == None:
-                            new_bottom_attacker = unit[0]
+                            new_bottom_attacker = unit
                         else:
-                            if unit[1] > new_bottom_attacker.damage:
-                                new_bottom_attacker = unit[0]
+                            if unit[1] > new_bottom_attacker[1]:
+                                new_bottom_attacker = unit
                 
                     new_right_attacker = None
                     for unit in units_that_can_attack_right:
                         if new_right_attacker == None:
-                            new_right_attacker = unit[0]
+                            new_right_attacker = unit
                         else:
-                            if unit[1] > new_right_attacker.damage:
-                                new_right_attacker = unit[0]
+                            if unit[1] > new_right_attacker[1]:
+                                new_right_attacker = unit
 
-                    if new_bottom_attacker.damage > new_right_attacker.damage:
+                    if new_bottom_attacker[1] > new_right_attacker[1]:
                         bottom_attacker = new_bottom_attacker
                         units_that_can_attack_bottom.remove(new_bottom_attacker)
                     else:
@@ -222,26 +227,26 @@ def computer_player(com, world):
 
             ###############################################################################################
 
-                if bottom_attacker == left_attacker and bottom_attacker != None:
+                if bottom_attacker == left_attacker and bottom_attacker != None and units_that_can_attack_bottom != [] and units_that_can_attack_left != []:
                     final_attackers = False
 
                     new_bottom_attacker = None
                     for unit in units_that_can_attack_bottom:
                         if new_bottom_attacker == None:
-                            new_bottom_attacker = unit[0]
+                            new_bottom_attacker = unit
                         else:
-                            if unit[1] > new_bottom_attacker.damage:
-                                new_bottom_attacker = unit[0]
+                            if unit[1] > new_bottom_attacker[1]:
+                                new_bottom_attacker = unit
                 
                     new_left_attacker = None
                     for unit in units_that_can_attack_left:
                         if new_left_attacker == None:
-                            new_left_attacker = unit[0]
+                            new_left_attacker = unit
                         else:
-                            if unit[1] > new_left_attacker.damage:
-                                new_left_attacker = unit[0]
+                            if unit[1] > new_left_attacker[1]:
+                                new_left_attacker = unit
 
-                    if new_bottom_attacker.damage > new_left_attacker.damage:
+                    if new_bottom_attacker[1] > new_left_attacker[1]:
                         bottom_attacker = new_bottom_attacker
                         units_that_can_attack_bottom.remove(new_bottom_attacker)
                     else:
@@ -250,26 +255,26 @@ def computer_player(com, world):
 
             ###############################################################################################
 
-                if right_attacker == left_attacker and right_attacker != None:
+                if right_attacker == left_attacker and right_attacker != None and units_that_can_attack_right != [] and units_that_can_attack_left != []:
                     final_attackers = False
 
                     new_right_attacker = None
                     for unit in units_that_can_attack_right:
                         if new_right_attacker == None:
-                            new_right_attacker = unit[0]
+                            new_right_attacker = unit
                         else:
-                            if unit[1] > new_right_attacker.damage:
-                                new_right_attacker = unit[0]
+                            if unit[1] > new_right_attacker[1]:
+                                new_right_attacker = unit
                 
                     new_left_attacker = None
                     for unit in units_that_can_attack_left:
                         if new_left_attacker == None:
-                            new_left_attacker = unit[0]
+                            new_left_attacker = unit
                         else:
-                            if unit[1] > new_left_attacker.damage:
-                                new_left_attacker = unit[0]
+                            if unit[1] > new_left_attacker[1]:
+                                new_left_attacker = unit
 
-                    if new_right_attacker.damage > new_left_attacker.damage:
+                    if new_right_attacker[1] > new_left_attacker[1]:
                         right_attacker = new_right_attacker
                         units_that_can_attack_right.remove(new_right_attacker)
                     else:
@@ -283,7 +288,7 @@ def computer_player(com, world):
             total_damage = 0
             for attacker in attackers:
                 if attacker != None:
-                    total_damage += attacker.damage
+                    total_damage += attacker[1]
 
             damage[enemy] = total_damage
             enemy_attack[enemy]= attackers
@@ -311,21 +316,24 @@ def computer_player(com, world):
         #enemy_attack[optimal_target][3].move_unit(world.get_space(enemy.space.get_x()+1, enemy.space.get_y()))
         #enemy_attack[optimal_target][3].attack(optimal_target)
 
-        #arbitrarily initialize best attacker as first one
-        move_next = enemy_attack[optimal_target][0]
+        move_next = None
         for attacker in enemy_attack[optimal_target]:
-            if (attacker != None and attacker.attack > move_next.attack):
+            if (move_next == None and attacker != None):
+                move_next = attacker
+            if (attacker != None and attacker[0].attack > move_next[0].attack):
                 move_next = attacker
 
         #figure out which slot the next unit to move was in then move it there
         slot = enemy_attack[optimal_target].index(move_next)
         if slot == 0:
-            move_next.move_unit(world.get_space(enemy.space.get_x(), enemy.space.get_y()-1))
+            com.move_Unit(move_next[0],world,enemy.get_x(), enemy.get_y()-1)
         elif slot == 1:
-            move_next.move_unit(world.get_space(enemy.space.get_x(), enemy.space.get_y()+1))
+            com.move_Unit(move_next[0],world,enemy.get_x(), enemy.get_y()+1)
         elif slot == 2:
-            move_next.move_unit(world.get_space(enemy.space.get_x()-1, enemy.space.get_y()))
+            com.move_Unit(move_next[0],world,enemy.get_x()-1, enemy.get_y())
         elif slot == 3:
-            move_next.move_unit(world.get_space(enemy.space.get_x()+1, enemy.space.get_y()))
-        move_next.attack(optimal_target)
+            com.move_Unit(move_next[0],world,enemy.get_x()+1, enemy.get_y())
+        else:
+            print "What the heck?"
+        com.act_Unit(move_next[0], world, optimal_target)
     
