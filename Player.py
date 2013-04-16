@@ -37,7 +37,8 @@ class player(object):
 			print('error unit has already been moved')
 
 		if (movable == 1):
-			unit.move_unit(world_map.get_space(new_location_x, new_location_y))
+			if (unit.move_unit(world_map.get_space(new_location_x, new_location_y)) == 0):
+			    self.movedUnits.append(unit)
 				
 	def act_Unit(self, unit, world_map, unit_to_attack):
 		#have the unit act and add it to the list of acting units

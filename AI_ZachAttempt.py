@@ -325,15 +325,20 @@ def computer_player(com, world):
 
         #figure out which slot the next unit to move was in then move it there
         slot = enemy_attack[optimal_target].index(move_next)
-        if slot == 0:
-            com.move_Unit(move_next[0],world,enemy.get_x(), enemy.get_y()-1)
-        elif slot == 1:
-            com.move_Unit(move_next[0],world,enemy.get_x(), enemy.get_y()+1)
-        elif slot == 2:
-            com.move_Unit(move_next[0],world,enemy.get_x()-1, enemy.get_y())
-        elif slot == 3:
-            com.move_Unit(move_next[0],world,enemy.get_x()+1, enemy.get_y())
+        if move_next == None:
+            #no one can attack, so just finish the turn
+            com.movedUnits = com.units
+            com.actedUnits = com.units
         else:
-            print "What the heck?"
-        com.act_Unit(move_next[0], world, optimal_target)
+            if slot == 0:
+                com.move_Unit(move_next[0],world,enemy.get_x(), enemy.get_y()-1)
+            elif slot == 1:
+                com.move_Unit(move_next[0],world,enemy.get_x(), enemy.get_y()+1)
+            elif slot == 2:
+                com.move_Unit(move_next[0],world,enemy.get_x()-1, enemy.get_y())
+            elif slot == 3:
+                com.move_Unit(move_next[0],world,enemy.get_x()+1, enemy.get_y())
+            else:
+                print "What the heck?"
+            com.act_Unit(move_next[0], world, optimal_target)
     
