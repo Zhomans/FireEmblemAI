@@ -1,6 +1,7 @@
 #Represents a single unit
 #Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
 #Artificial Intelligence, Olin College, Spring 13
+from feworld import *
 
 class unit:
     #units have:
@@ -10,7 +11,7 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
-    def __init__(self, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry', name = ""):
+    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry', name = ""):
         self.space = space
         self.hp = hp
         self.attack = attack
@@ -18,6 +19,7 @@ class unit:
         self.move = move
         self.unitType = unitType
         self.name = name
+        world.grid[space.get_x()][space.get_y()].unit = self
     def __str__(self):
         return self.name
     def __repr__(self):

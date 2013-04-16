@@ -7,11 +7,10 @@ from simpleGUI import *
 #initialize everything
 level = fe_map()
 
-eliwood = unit(space = level.get_space(0,0), name = "eliwood")
-hector = unit(space = level.get_space(0,1), name = "hector")
-
-sonia = unit(space = level.get_space(5,5), name = "sonia")
-limstella = unit(space = level.get_space(5,6), name = "limstella")
+eliwood = unit(world = level, space = level.get_space(0,0), name = "eliwood")
+hector = unit(world = level, space = level.get_space(0,1), name = "hector")
+sonia = unit(world = level, space = level.get_space(5,5), name = "sonia")
+limstella = unit(world = level, space = level.get_space(5,6), name = "limstella")
 
 com = player()
 human = player(com, [eliwood, hector], "human", "human")
