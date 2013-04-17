@@ -36,9 +36,8 @@ while(len(human.units) == 2 and len(com.units) == 2):
                 human.move_Unit(unit,level,x,y)
         display(level)
     while (len(com.units) != len(com.actedUnits)):
-        #this function also has a while loop
-        #Not sure where it makes more sense
         computer_player(com, level)
+        display(level)
     #reset everything
     human.status()
     com.status()

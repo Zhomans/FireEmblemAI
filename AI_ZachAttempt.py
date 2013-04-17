@@ -1,6 +1,4 @@
 def computer_player(com, world):
-
-    while len(com.units) != len(com.actedUnits):
         damage = dict()
         enemies = dict()
         enemy_attack = dict()
