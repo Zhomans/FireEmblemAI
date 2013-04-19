@@ -1,3 +1,38 @@
+def check2(dir_attacker1,dir_attacker2,array1,array2):
+    #top=1
+    #bottom=2
+    def check(array):
+        new_dir_attacker = None
+        for unit in array:
+            if new_dir_attacker == None:
+                new_dir_attacker = unit
+            else:
+                if unit[1] > new_dir_attacker[1]:
+                    new_dir_attacker = unit
+        return new_dir_attacker
+
+    if dir_attacker1 == dir_attacker2 and dir_attacker1 != None and array1 != [] and array2 != []:
+        final_attackers = False
+
+        new_dir_attacker1=check(array1)
+        new_dir_attacker2=check(array2)
+
+        if new_dir_attacker1[1] > new_dir_attacker2[1]:
+            dir_attacker1 = new_dir_attacker1
+            array1.remove(new_dir_attacker1)
+        else:
+            dir_attacker2 = new_dir_attacker2
+            array2.remove(new_dir_attacker2)
+def damage_checker(dir_attacker,array):
+    for unit in array:
+        if dir_attacker == None:
+            dir_attacker = unit
+        else:
+            if unit[1] > dir_attacker[1]:
+                dir_attacker = unit
+    if array !=[]:
+        array.remove(dir_attacker)
+    return (dir_attacker,array)
 def computer_player(com, world):
         damage = dict()
         enemies = dict()
@@ -65,46 +100,23 @@ def computer_player(com, world):
 
             #these next four for loops determine which unit can do the most damage
             #in the position that it's labelled for
-            for unit in units_that_can_attack_top:
-                #unit is a list of a unit, an int (damage), and a list of spaces
-                if top_attacker == None:
-                    top_attacker = unit
-                else:
-                    if unit[1] > top_attacker[1]:
-                        top_attacker = unit
-            if units_that_can_attack_top != []:
-                units_that_can_attack_top.remove(top_attacker)
 
+            temptop=damage_checker(top_attacker,units_that_can_attack_top)
+            top_attacker=temptop[0]
+            units_that_can_attack_top=temptop[1]
 
-            for unit in units_that_can_attack_bottom:
-                if bottom_attacker == None:
-                    bottom_attacker = unit
-                else:
-                    if unit[1] > bottom_attacker[1]:
-                        bottom_attacker = unit
-            if units_that_can_attack_bottom !=[]:
-                units_that_can_attack_bottom.remove(bottom_attacker)
+            tempbottom=damage_checker(bottom_attacker,units_that_can_attack_bottom)
+            bottom_attacker=tempbottom[0]
+            units_that_can_attack_bottom=tempbottom[1]
 
+            tempright=damage_checker(right_attacker,units_that_can_attack_right)
+            right_attacker=tempright[0]
+            units_that_can_attack_right=tempright[1]
 
-            for unit in units_that_can_attack_right:
-                if right_attacker == None:
-                    right_attacker = unit
-                else:
-                    if unit[1] > right_attacker[1]:
-                        right_attacker = unit
-            if units_that_can_attack_right != []:
-                units_that_can_attack_right.remove(right_attacker)
-
-
-            for unit in units_that_can_attack_left:
-                if left_attacker == None:
-                    left_attacker = unit
-                else:
-                    if unit[1] > left_attacker[1]:
-                        left_attacker = unit
-            if units_that_can_attack_left != []:
-                units_that_can_attack_left.remove(left_attacker)
-
+            templeft=damage_checker(left_attacker,units_that_can_attack_left)
+            left_attacker=templeft[0]
+            units_that_can_attack_left=templeft[1]
+            
         
             while final_attackers == False:
                 #check whether the same unit is in two slots
@@ -112,175 +124,16 @@ def computer_player(com, world):
                 #only loops if duplicates are found
                 final_attackers = True
 
-                if top_attacker == bottom_attacker and top_attacker != None and units_that_can_attack_top != [] and units_that_can_attack_bottom != []:
-                    final_attackers = False
+                check2(top_attacker,bottom_attacker,units_that_can_attack_top,units_that_can_attack_bottom)
+                check2(top_attacker,right_attacker,units_that_can_attack_top,units_that_can_attack_right)
+                check2(top_attacker,left_attacker,units_that_can_attack_top,units_that_can_attack_left)
 
-                    new_top_attacker = None
-                    for unit in units_that_can_attack_top:
-                        #unit is a list of a unit, an int (damage), and a list of spaces
-                        if new_top_attacker == None:
-                            new_top_attacker = unit
-                        else:
-                            if unit[1] > new_top_attacker[1]:
-                                new_top_attacker = unit
-                
-                    new_bottom_attacker = None
-                    for unit in units_that_can_attack_bottom:
-                        if new_bottom_attacker == None:
-                            new_bottom_attacker = unit
-                        else:
-                            if unit[1] > new_bottom_attacker[1]:
-                                new_bottom_attacker = unit
+                check2(bottom_attacker,right_attacker,units_that_can_attack_bottom,units_that_can_attack_right)
+                check2(bottom_attacker,left_attacker,units_that_can_attack_bottom,units_that_can_attack_left)
 
-                    if new_top_attacker[1] > new_bottom_attacker[1]:
-                        top_attacker = new_top_attacker
-                        units_that_can_attack_top.remove(new_top_attacker)
-                    else:
-                        bottom_attacker = new_bottom_attacker
-                        units_that_can_attack_bottom.remove(new_bottom_attacker)
+                check2(right_attacker,left_attacker,units_that_can_attack_right,units_that_can_attack_left)
 
             ###############################################################################################
-
-                if top_attacker == right_attacker and top_attacker != None and units_that_can_attack_top != [] and units_that_can_attack_right != []:
-                    final_attackers = False
-
-                    new_top_attacker = None
-                    for unit in units_that_can_attack_top:
-                        if new_top_attacker == None:
-                            new_top_attacker = unit
-                        else:
-                            if unit[1] > new_top_attacker[1]:
-                                new_top_attacker = unit
-                
-                    new_right_attacker = None
-                    for unit in units_that_can_attack_right:
-                        if new_right_attacker == None:
-                            new_right_attacker = unit
-                        else:
-                            if unit[1] > new_right_attacker[1]:
-                                new_right_attacker = unit
-
-                    if new_top_attacker[1] > new_right_attacker[1]:
-                        top_attacker = new_top_attacker
-                        units_that_can_attack_top.remove(new_top_attacker)
-                    else:
-                        right_attacker = new_right_attacker
-                        units_that_can_attack_right.remove(new_right_attacker)
-
-            ###############################################################################################
-
-                if top_attacker == left_attacker and top_attacker != None and units_that_can_attack_top != [] and units_that_can_attack_left != []:
-                    final_attackers = False
-
-                    new_top_attacker = None
-                    for unit in units_that_can_attack_top:
-                        if new_top_attacker == None:
-                            new_top_attacker = unit
-                        else:
-                            if unit[1] > new_top_attacker[1]:
-                                new_top_attacker = unit
-                
-                    new_left_attacker = None
-                    for unit in units_that_can_attack_left:
-                        if new_left_attacker == None:
-                            new_left_attacker = unit
-                        else:
-                            if unit[1] > new_left_attacker[1]:
-                                new_left_attacker = unit
-
-                    if new_top_attacker[1] > new_left_attacker[1]:
-                        top_attacker = new_top_attacker
-                        units_that_can_attack_top.remove(new_top_attacker)
-                    else:
-                        left_attacker = new_left_attacker
-                        units_that_can_attack_left.remove(new_left_attacker)
-
-            ###############################################################################################
-
-                if bottom_attacker == right_attacker and bottom_attacker != None and units_that_can_attack_bottom != [] and units_that_can_attack_right != []:
-                    final_attackers = False
-
-                    new_bottom_attacker = None
-                    for unit in units_that_can_attack_bottom:
-                        if new_bottom_attacker == None:
-                            new_bottom_attacker = unit
-                        else:
-                            if unit[1] > new_bottom_attacker[1]:
-                                new_bottom_attacker = unit
-                
-                    new_right_attacker = None
-                    for unit in units_that_can_attack_right:
-                        if new_right_attacker == None:
-                            new_right_attacker = unit
-                        else:
-                            if unit[1] > new_right_attacker[1]:
-                                new_right_attacker = unit
-
-                    if new_bottom_attacker[1] > new_right_attacker[1]:
-                        bottom_attacker = new_bottom_attacker
-                        units_that_can_attack_bottom.remove(new_bottom_attacker)
-                    else:
-                        right_attacker = new_right_attacker
-                        units_that_can_attack_right.remove(new_right_attacker)
-
-            ###############################################################################################
-
-                if bottom_attacker == left_attacker and bottom_attacker != None and units_that_can_attack_bottom != [] and units_that_can_attack_left != []:
-                    final_attackers = False
-
-                    new_bottom_attacker = None
-                    for unit in units_that_can_attack_bottom:
-                        if new_bottom_attacker == None:
-                            new_bottom_attacker = unit
-                        else:
-                            if unit[1] > new_bottom_attacker[1]:
-                                new_bottom_attacker = unit
-                
-                    new_left_attacker = None
-                    for unit in units_that_can_attack_left:
-                        if new_left_attacker == None:
-                            new_left_attacker = unit
-                        else:
-                            if unit[1] > new_left_attacker[1]:
-                                new_left_attacker = unit
-
-                    if new_bottom_attacker[1] > new_left_attacker[1]:
-                        bottom_attacker = new_bottom_attacker
-                        units_that_can_attack_bottom.remove(new_bottom_attacker)
-                    else:
-                        left_attacker = new_left_attacker
-                        units_that_can_attack_left.remove(new_left_attacker)
-
-            ###############################################################################################
-
-                if right_attacker == left_attacker and right_attacker != None and units_that_can_attack_right != [] and units_that_can_attack_left != []:
-                    final_attackers = False
-
-                    new_right_attacker = None
-                    for unit in units_that_can_attack_right:
-                        if new_right_attacker == None:
-                            new_right_attacker = unit
-                        else:
-                            if unit[1] > new_right_attacker[1]:
-                                new_right_attacker = unit
-                
-                    new_left_attacker = None
-                    for unit in units_that_can_attack_left:
-                        if new_left_attacker == None:
-                            new_left_attacker = unit
-                        else:
-                            if unit[1] > new_left_attacker[1]:
-                                new_left_attacker = unit
-
-                    if new_right_attacker[1] > new_left_attacker[1]:
-                        right_attacker = new_right_attacker
-                        units_that_can_attack_right.remove(new_right_attacker)
-                    else:
-                        left_attacker = new_left_attacker
-                        units_that_can_attack_left.remove(new_left_attacker)
-
-            ###############################################################################################
-
 
             attackers = [top_attacker, bottom_attacker, left_attacker, right_attacker]
             total_damage = 0
