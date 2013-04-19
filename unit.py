@@ -20,7 +20,7 @@ class unit:
         self.unitType = unitType
         self.name = name
         world.grid[space.get_x()][space.get_y()].unit = self
-        self.owner = owner
+        self.player = owner
     def __str__(self):
         return self.name
     def __repr__(self):
