@@ -21,6 +21,7 @@ while(len(human.units) == 2 and len(com.units) == 2):
     while(len(human.movedUnits) != len(human.units)):
         #tell player what units can move.
         #there must be a better way
+        display(level)
         print "Moveable units: "
         for unit in human.units:
             if unit not in human.movedUnits:
@@ -53,7 +54,6 @@ while(len(human.units) == 2 and len(com.units) == 2):
                             if attack == enemy.name:
                                 unit.attack_enemy(enemy)
                                 com.status()
-        display(level)
     while (len(com.units) != len(com.actedUnits)):
         computer_player(com, level)
         display(level)
