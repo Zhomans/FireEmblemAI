@@ -41,14 +41,18 @@ while(len(human.units) == 2 and len(com.units) == 2):
 
                 if moved == 1:
                     can_attack = list()
-                    if(level.get_space(x, y-1).unit != None):
-                        can_attack.append(level.get_space(x, y-1).unit)
-                    if (level.get_space(x + 1, y).unit != None):
-                        can_attack.append(level.get_space(x+1,y).unit)
-                    if (level.get_space(x, y+1).unit != None):
-                        can_attack.append(level.get_space(x,y+1).unit)
-                    if (level.get_space(x-1, y).unit != None):
-                        can_attack.append(level.get_space(x-1,y).unit)
+                    to_test = level.get_space(x, y-1).unit
+                    if (to_test != None and to_test.player != human):
+                        can_attack.append(to_test)
+                    to_test = level.get_space(x + 1, y).unit
+                    if (to_test != None and to_test.player != human):
+                        can_attack.append(to_test)
+                    to_test = level.get_space(x, y+1).unit
+                    if (to_test != None and to_test.player != human):
+                        can_attack.append(to_test)
+                    to_test = level.get_space(x-1, y).unit
+                    if (to_test != None and to_test.player != human):
+                        can_attack.append(to_test)
                     if (len(can_attack) > 0):
                         attack = raw_input("Type unit to attack of "+str(can_attack)+"\n")
                         if attack != "n":
