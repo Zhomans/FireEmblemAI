@@ -33,26 +33,26 @@ while(len(human.units) == 2 and len(com.units) == 2):
             if unit.name == to_move:
                 x = int(command[command.find('(')+1:command.find('(')+2])
                 y = int(command[command.find(')')-1:command.find(')')])
-                human.move_Unit(unit,level,x,y)
+                moved = human.move_Unit(unit,level,x,y)
                 #if an enemy next to the unit
                 #ask if you want to attack
                 #this is incredibly inefficient and hackish
-                can_attack = list()
-                if(level.get_space(x, y-1).unit != None):
-                    can_attack.append(level.get_space(x, y-1).unit)
-                if (level.get_space(x + 1, y).unit != None):
-                    can_attack.append(level.get_space(x+1,y).unit)
-                if (level.get_space(x, y+1).unit != None):
-                    can_attack.append(level.get_space(x,y+1).unit)
-                if (level.get_space(x-1, y).unit != None):
-                    can_attack.append(level.get_space(x-1,y).unit)
-                if (len(can_attack) > 0):
-                    attack = raw_input("Type unit to attack of "+str(can_attack)+"\n")
-                    if attack != "n":
-                        for enemy in com.units:
-                            if attack == enemy.name:
-                                unit.attack_enemy(enemy)
-                                com.status()
+                if moved == 1:
+                    can_attack = list()
+                    if(level.get_space(x, y-1).unit != None):
+                        can_attack.append(level.get_space(x, y-1).unit)
+                    if (level.get_space(x + 1, y).unit != None):
+                        can_attack.append(level.get_space(x+1,y).unit)
+                    if (level.get_space(x, y+1).unit != None):
+                        can_attack.append(level.get_space(x,y+1).unit)
+                    if (level.get_space(x-1, y).unit != None):
+                        can_attack.append(level.get_space(x-1,y).unit)
+                    if (len(can_attack) > 0):
+                        attack = raw_input("Type unit to attack of "+str(can_attack)+"\n")
+                        if attack != "n":
+                            for enemy in com.units:
+                                if attack == enemy.name:
+                                    unit.attack_enemy(enemy)
         display(level)
     while (len(com.units) != len(com.actedUnits)):
         computer_player(com, level)

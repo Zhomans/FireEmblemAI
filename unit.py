@@ -51,11 +51,15 @@ class unit:
         if enemy.hp > 0:
             #counterattack
             self.hp = self.hp - (enemy.attack - self.defense)
+            if self.hp <= 0:
+                self.die()
+        else:
+            enemy.die()
 
     def die(self):
         self.space.unit = None
         self.space = None
-        self.owner.units.remove(self)
+        self.player.units.remove(self)
 
     def get_move_list(self):
         start_space = self.get_space()
