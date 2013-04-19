@@ -31,14 +31,15 @@ while length(units) != length(actedUnits):
 #while there are units that are usable
     for unit in units:
         for enemy in self.opponent.units:
-            #check if enemy is in range
-            xdistance = abs(unit.get_x() - enemy.get_x())
-            ydistance = abs(unit.get_y() - enemy.get_y())
-            #oh, shoot, we should check if there's a unit standing
-            #the only place it can go....
-            #we probably should make a method "can move there?"
+            #possible spaces to attack from
+            top = world.get_space(enemy.get_x(), enemy.get_y() + 1)
+            right = world.get_space(enemy.get_x()+1, enemy.get_y())
+            bottom = world.get_space(enemy.get_x(), enemy.get_y()-1)
+            left = world.get_space(enemy.get_x()-1, enemy.get_y())
+            slots = [top, right, bottom, left]
 
-            if (xdistance + ydistance) <= unit.move:
+            if((for s in slots) s in unit.get_move_list()):
+                #check if you can attack the enemy
                 if enemy in attackers.keys():
                     #if other units can attack the enemy, check if you should
                     if(length(attackers[enemy]) < 4):
@@ -53,8 +54,15 @@ while length(units) != length(actedUnits):
                         #which should be true
                         low_dmg = min(damage[enemy])
                         if((unit.attack - enemy.defense) > low_dmg):
-                            #stronger than a current attacker, replace it
+                            #stronger than a current attacker, check spaces
                             index = damage[enemy].index(low_dmg)
+                            attacker = attackers[enemy][index]
+                            #check whether the intersection of attacker spaces
+                            #and possible attacking slots
+                            #is in the spaces for new attacker
+                            #if so, replace
+                            #if not, no
+
                             damage[enemy][index] = unit.attack - enemy.defense
                             attackers[enemy][index] = unit
                 else:

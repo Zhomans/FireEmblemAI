@@ -14,6 +14,10 @@ class player(object):
 		self.name = name
 		self.opponent = player
 		self.type = type
+		if units != None:
+			for unit in units:
+				unit.player=self
+
 	def decide_turn():
 		pass
 		#to be over written by the enemy and the AI classes
@@ -27,6 +31,9 @@ class player(object):
 		self.name = name
 		self.opponent = opponent
 		self.type = type
+		if units != None:
+			for unit in units:
+				unit.player=self
 
 
 	def move_Unit(self, unit, world_map, new_location_x, new_location_y):
@@ -38,7 +45,9 @@ class player(object):
 
 		if (movable == 1):
 			if (unit.move_unit(world_map.get_space(new_location_x, new_location_y)) == 0):
-			    self.movedUnits.append(unit)
+				self.movedUnits.append(unit)
+				return 1
+		return 0
 				
 	def act_Unit(self, unit, world_map, unit_to_attack):
 		#have the unit act and add it to the list of acting units
@@ -53,10 +62,3 @@ class player(object):
 			unit.attack_enemy(unit_to_attack)
 			self.actedUnits.append(unit)
 			print('unit has successfully attacked enemy unit')
-
-	def status(self):
-		for unit in self.units:
-			if unit.hp <= 0:
-				unit.die()
-				self.units.remove(unit)
-				print unit.name + " has died!"
