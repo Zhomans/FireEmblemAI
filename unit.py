@@ -11,7 +11,7 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
-    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry', name = ""):
+    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry', name = "", owner = None):
         self.space = space
         self.hp = hp
         self.attack = attack
@@ -20,6 +20,7 @@ class unit:
         self.unitType = unitType
         self.name = name
         world.grid[space.get_x()][space.get_y()].unit = self
+        self.owner = owner
     def __str__(self):
         return self.name
     def __repr__(self):
@@ -54,7 +55,7 @@ class unit:
     def die(self):
         self.space.unit = None
         self.space = None
-        #Add in "Unit disappears from player's unit list"
+        self.owner.units.remove(self)
 
     def get_move_list(self):
         start_space = self.get_space()
