@@ -60,10 +60,3 @@ class player(object):
 			unit.attack_enemy(unit_to_attack)
 			self.actedUnits.append(unit)
 			print('unit has successfully attacked enemy unit')
-
-	def status(self):
-		for unit in self.units:
-			if unit.hp <= 0:
-				unit.die()
-				self.units.remove(unit)
-				print unit.name + " has died!"

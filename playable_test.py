@@ -47,7 +47,7 @@ while(len(human.units) == 2 and len(com.units) == 2):
                 if (level.get_space(x-1, y).unit != None):
                     can_attack.append(level.get_space(x-1,y).unit)
                 if (len(can_attack) > 0):
-                    attack = raw_input("Type unit to attack of "+str(can_attack))
+                    attack = raw_input("Type unit to attack of "+str(can_attack)+"\n")
                     if attack != "n":
                         for enemy in com.units:
                             if attack == enemy.name:
