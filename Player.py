@@ -14,6 +14,10 @@ class player(object):
 		self.name = name
 		self.opponent = player
 		self.type = type
+		if units != None:
+			for unit in units:
+				unit.player=self
+
 	def decide_turn():
 		pass
 		#to be over written by the enemy and the AI classes
@@ -27,6 +31,9 @@ class player(object):
 		self.name = name
 		self.opponent = opponent
 		self.type = type
+		if units != None:
+			for unit in units:
+				unit.player=self
 
 
 	def move_Unit(self, unit, world_map, new_location_x, new_location_y):
