@@ -47,6 +47,9 @@ class unit:
         #we can make it better later.
         #we'll need to change it to add weapons anyway
         enemy.hp = enemy.hp - (self.attack - enemy.defense)
+        if enemy.hp > 0:
+            #counterattack
+            self.hp = self.hp - (enemy.attack - self.defense)
 
     def die(self):
         self.space.unit = None
