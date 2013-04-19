@@ -45,7 +45,9 @@ class player(object):
 
 		if (movable == 1):
 			if (unit.move_unit(world_map.get_space(new_location_x, new_location_y)) == 0):
-			    self.movedUnits.append(unit)
+				self.movedUnits.append(unit)
+				return 1
+		return 0
 				
 	def act_Unit(self, unit, world_map, unit_to_attack):
 		#have the unit act and add it to the list of acting units
