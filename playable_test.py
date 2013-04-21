@@ -41,16 +41,32 @@ while(len(human.units) == 2 and len(com.units) == 2):
 
                 if moved == 1:
                     can_attack = list()
-                    to_test = level.get_space(x, y-1).unit
+                    #initialize attackable unit as none
+                    to_test = None
+                    if (y > 0):
+                    #check for edge case
+                        to_test = level.get_space(x, y-1).unit
                     if (to_test != None and to_test.player != human):
                         can_attack.append(to_test)
-                    to_test = level.get_space(x + 1, y).unit
+                        #reset to_test
+                        to_test = None
+                    if (x < len(level.grid[1]) - 1):
+                    #check for edge case
+                        to_test = level.get_space(x + 1, y).unit
                     if (to_test != None and to_test.player != human):
                         can_attack.append(to_test)
-                    to_test = level.get_space(x, y+1).unit
+                        #reset to_test
+                        to_test = None
+                    if (y < (len(level.grid) - 1)):
+                    #check for edge case
+                        to_test = level.get_space(x, y+1).unit
                     if (to_test != None and to_test.player != human):
                         can_attack.append(to_test)
-                    to_test = level.get_space(x-1, y).unit
+                        #reset to_test
+                        to_test = None
+                    if (x > 0):
+                    #check for edge case
+                        to_test = level.get_space(x-1, y).unit
                     if (to_test != None and to_test.player != human):
                         can_attack.append(to_test)
                     if (len(can_attack) > 0):

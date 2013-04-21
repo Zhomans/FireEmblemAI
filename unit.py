@@ -65,7 +65,7 @@ class unit:
         start_space = self.get_space()
         world = start_space.world
         moves_remaining = self.move
-        move_list = []
+        move_list = [start_space]
         recent_moves = [start_space]
         next_moves = []
 
@@ -75,7 +75,7 @@ class unit:
                 for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
                     space = world.get_space(considered_space.get_x()+move_poss[0], considered_space.get_y()+move_poss[1])
                     if space != None:
-                        if space.unit == None:
+                        if space.unit == None or space.unit == self:
                             if space not in move_list:
                                 move_list.append(space)
                                 next_moves.append(space)
