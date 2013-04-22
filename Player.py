@@ -5,6 +5,8 @@
 
 from feworld import *
 from unit import*
+from FinalAI import *
+from human import *
 
 class player(object):
 	def __init__(self, player=None, units=None, name="Your mother", type="com"):
@@ -35,6 +37,11 @@ class player(object):
 			for unit in units:
 				unit.player=self
 
+	def play_turn(self, world):
+		if self.type == "com":
+			computer_player(self,world)
+		else:
+			human_player(self, world)
 
 	def move_Unit(self, unit, world_map, new_location_x, new_location_y):
 		movable = 1
