@@ -18,11 +18,11 @@ player_units = [eliwood, hector, lyn]
 #in 7 there's just under twice as many enemies as your units at first
 #then a bunch of reinforcements
 #we aren't accounting for reinforcements....
-sonia = unit(world = level, space = level.get_space(0,5), name = "sonia")
-limstella = unit(world = level, space = level.get_space(1,5),attack = 7,name ="limstella")
+sonia = unit(world = level, space = level.get_space(0,8), name = "sonia")
+limstella = unit(world = level, space = level.get_space(1,8),attack = 7,name ="limstella")
 enemy_units = [sonia, limstella]
 for i in range(4):
-    grunt = unit(world=level,space=level.get_space(2+i,5),name="grunt"+str(i))
+    grunt = unit(world=level,space=level.get_space(2+i,8),name="grunt"+str(i))
     enemy_units.append(grunt)
 
 com = player()

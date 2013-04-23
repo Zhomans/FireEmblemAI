@@ -1,3 +1,5 @@
+import math
+
 def check2(dir_attacker1,dir_attacker2,array1,array2):
     #top=1
     #bottom=2
@@ -37,10 +39,11 @@ def damage_checker(dir_attacker,array):
         array.remove(dir_attacker)
     return (dir_attacker,array)
     
-def computer_player(com, world):
+def computer_player(com, world, strat = "d"):
         damage = dict()
         enemies = dict()
         enemy_attack = dict()
+        dist = dict()
         opponent = com.opponent
 
         for enemy in opponent.units:
@@ -57,6 +60,7 @@ def computer_player(com, world):
             #unit is of type unit
             unit.move_list = unit.get_move_list()
             unit.attack_list = unit.get_attack_list()
+            dist[unit] = dict()
 
             for enemy in opponent.units:
                 #enemy is of type unit
@@ -71,6 +75,9 @@ def computer_player(com, world):
                     #for every enemy, remember which units can attack it
                     #how much they can do, and where they can attack from
                     enemies[enemy].append([unit, unit.attack - enemy.defense, surrounding_spaces])
+                else:
+                #not in range; remember distance
+                    dist[unit][math.sqrt((enemy.get_x() - unit.get_x())**2 + (enemy.get_y() - unit.get_y())**2)] = enemy
 
         for enemy in opponent.units:
             #enemy is of type unit
@@ -173,10 +180,36 @@ def computer_player(com, world):
 
         #figure out which slot the next unit to move was in then move it there
         slot = enemy_attack[optimal_target].index(move_next)
-        if move_next == None:
+        if move_next == None and strat == "d":
             #no one can attack, so just finish the turn
             com.movedUnits = com.units
             com.actedUnits = com.units
+        elif move_next == None and strat == "a":
+            #agressive strategy; move units
+            for unit in dist.keys():
+                dists = dist[unit].keys()[:]
+                dists.sort()
+                min_dist = dists[0]
+                delta_x = unit.get_x() - dist[unit][min_dist].get_x()
+                delta_y = unit.get_y() - dist[unit][min_dist].get_y()
+                if (delta_x > delta_y):
+                    #closer in the y direction than the x direction; move in x direction
+                    if delta_x >= unit.move:
+                        #more than movement away; just move
+                        com.move_Unit(unit,world,unit.get_x()+math.copysign(unit.move,-delta_y),unit.get_y)
+                    else:
+                        #we have some left over; move in both directions
+                        com.move_Unit(unit,world,unit.get_x()+delta_x,unit.get_y+(unit.move-delta_x))
+                else:
+                    #closer in the x direction than the y direction; move in y direction
+                    if delta_y >= unit.move:
+                        print unit.get_x(),unit.get_y()+math.copysign(unit.move,-delta_y)
+                        com.move_Unit(unit,world,unit.get_x(),int(unit.get_y()+math.copysign(unit.move,-delta_y)))
+                    else:
+                        com.move_Unit(unit,world,unit.get_x()+int(unit.move-delta_y),int(unit.get_y()+delta_y))
+            com.actedUnits = com.units
+            com.movedUnits = com.units
+                                
         else:
             if slot == 0:
                 com.move_Unit(move_next[0],world,optimal_target.get_x(), optimal_target.get_y()-1)
