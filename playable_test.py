@@ -7,16 +7,30 @@ from simpleGUI import *
 #initialize everything
 level = fe_map()
 
+#player units
+#Looks like in 7 you get ~.03 units/space
 eliwood = unit(world = level, space = level.get_space(0,0), name = "eliwood")
 hector = unit(world = level, space = level.get_space(0,1), name = "hector")
-sonia = unit(world = level, space = level.get_space(5,5), name = "sonia")
-limstella = unit(world = level, space = level.get_space(5,6), name = "limstella")
+lyn = unit(world = level, space = level.get_space(2,0), name = "lyn")
+player_units = [eliwood, hector, lyn]
+
+#enemy units
+#in 7 there's just under twice as many enemies as your units at first
+#then a bunch of reinforcements
+#we aren't accounting for reinforcements....
+sonia = unit(world = level, space = level.get_space(0,5), name = "sonia")
+limstella = unit(world = level, space = level.get_space(1,5),name ="limstella")
+enemy_units = [sonia, limstella]
+for i in range(4):
+    grunt = unit(world=level,space=level.get_space(2+i,5),name="grunt"+str(i))
+    enemy_units.append(grunt)
 
 com = player()
-human = player(com, [eliwood, hector], "human", "human")
-com.initialize(human,[sonia, limstella],"com", "com")
+#note: python lists are passed by reference, so the copy is necessary
+human = player(com, list(player_units), "human", "human")
+com.initialize(human,list(enemy_units),"com", "com")
 
-while(len(human.units) == 2 and len(com.units) == 2):
+while(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
     #run while no units have died
     display(level)
     while(len(human.movedUnits) != len(human.units)):
@@ -31,7 +45,7 @@ while(len(human.units) == 2 and len(com.units) == 2):
     human.actedUnits = []
     com.movedUnits = []
     com.actedUnits = []
-if len(human.units) != 2:
+if len(human.units) != len(player_units):
     print "Computer wins!"
 else:
     print "Human wins!"
