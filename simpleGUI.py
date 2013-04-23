@@ -7,7 +7,8 @@ def display(maps):
 	board=[[None]*10 for _ in range(10)]
 	counter=0
 	root=tk.Tk()
-	img = ImageTk.PhotoImage(Image.open('dude.gif'))
+	player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
+	enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
 	for i,row in enumerate(board):
 		for j,column in enumerate(row):
 			if (maps.grid[i][j].unit == None):
@@ -16,6 +17,9 @@ def display(maps):
 				else:
 					L=tk.Label(root,text='    ',bg='dark green')
 			else:
-				L = tk.Label(root, image = img)
+				if maps.grid[i][j].unit.player.name == 'human':
+					L = tk.Label(root, image = player_img)
+				else:
+					L = tk.Label(root, image = enemy_img)
 			L.grid(row=j,column=i)
 	root.mainloop()
