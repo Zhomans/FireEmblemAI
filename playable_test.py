@@ -11,7 +11,7 @@ level = fe_map()
 #Looks like in 7 you get ~.03 units/space
 eliwood = unit(world = level, space = level.get_space(0,0), name = "eliwood")
 hector = unit(world = level, space = level.get_space(0,1), name = "hector")
-lyn = unit(world = level, space = level.get_space(2,0), name = "lyn")
+lyn = unit(world = level, space = level.get_space(2,0), name = "lyn", hp = 15)
 player_units = [eliwood, hector, lyn]
 
 #enemy units
