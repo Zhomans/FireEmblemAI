@@ -94,7 +94,7 @@ def computer_player(com, world):
                     units_that_can_attack_left.append(unit)
                 if right_space in unit[2]:
                     units_that_can_attack_right.append(unit)
-
+            
             final_attackers = False
             top_attacker = None
             bottom_attacker = None
@@ -145,7 +145,7 @@ def computer_player(com, world):
             ###################################################################
 
             attackers = [top_attacker, bottom_attacker, left_attacker, right_attacker]
-            total_damage = 0
+            total_damage = 0.0
             for attacker in attackers:
                 if attacker != None:
                     total_damage += attacker[1]
@@ -188,6 +188,5 @@ def computer_player(com, world):
                 com.move_Unit(move_next[0],world,optimal_target.get_x()+1, optimal_target.get_y())
             else:
                 print "What the heck?"
-            print slot
             print move_next[0].name+" attacked "+optimal_target.name+" at "+str(optimal_target.space)+" from "+str(move_next[0].space)
             com.act_Unit(move_next[0], world, optimal_target)
