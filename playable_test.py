@@ -6,28 +6,39 @@ import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
 
+def _delete_window():
+    try:
+        print "Prof Oak: You can't run from a trainer battle!"
+        #root.destroy()
+    except:
+        pass
+def _destroy(event):
+    pass
+
 def display(maps,root,good,bad):
+    print (root is None)
     for i,row in enumerate(maps.grid):
         for j,column in enumerate(row):
-            try:
-                if (maps.grid[i][j].unit == None):
-                    if ((i+j) % 2) ==0:
-                        L=tk.Label(root,text='    ',bg='green')
-                    else:
-                        L=tk.Label(root,text='    ',bg='dark green')
+            if (maps.grid[i][j].unit == None):
+                if ((i+j) % 2) ==0:
+                    L=tk.Label(root,text='    ',bg='green')
                 else:
-                    if maps.grid[i][j].unit.player.name == 'human':
-                        L = tk.Label(root, image = good)
-                    else:
-                        L = tk.Label(root, image = bad)
-                L.grid(row=j,column=i)
-            except:
-                print "ERROR:  Did you close the gui?"
+                    L=tk.Label(root,text='    ',bg='dark green')
+            else:
+                if maps.grid[i][j].unit.player.name == 'human':
+                    L = tk.Label(root, image = good)
+                else:
+                    L = tk.Label(root, image = bad)
+            L.grid(row=j,column=i)
 
 
 #initialize everything
 level = fe_map()
 root=tk.Tk()
+
+root.protocol("WM_DELETE_WINDOW", _delete_window)
+root.bind("<Destroy>", _destroy)
+
 player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
 enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
 
@@ -73,4 +84,6 @@ if len(human.units) != len(player_units):
     print "Computer wins!"
 else:
     print "Human wins!"
+display(level,root,player_img,enemy_img)
+root.destroy()
 root.mainloop() 
