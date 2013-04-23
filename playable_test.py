@@ -9,17 +9,20 @@ from PIL import Image
 def display(maps,root,good,bad):
     for i,row in enumerate(maps.grid):
         for j,column in enumerate(row):
-            if (maps.grid[i][j].unit == None):
-                if ((i+j) % 2) ==0:
-                    L=tk.Label(root,text='    ',bg='green')
+            try:
+                if (maps.grid[i][j].unit == None):
+                    if ((i+j) % 2) ==0:
+                        L=tk.Label(root,text='    ',bg='green')
+                    else:
+                        L=tk.Label(root,text='    ',bg='dark green')
                 else:
-                    L=tk.Label(root,text='    ',bg='dark green')
-            else:
-                if maps.grid[i][j].unit.player.name == 'human':
-                    L = tk.Label(root, image = good)
-                else:
-                    L = tk.Label(root, image = bad)
-            L.grid(row=j,column=i)
+                    if maps.grid[i][j].unit.player.name == 'human':
+                        L = tk.Label(root, image = good)
+                    else:
+                        L = tk.Label(root, image = bad)
+                L.grid(row=j,column=i)
+            except:
+                print "ERROR:  Did you close the gui?"
 
 
 #initialize everything
