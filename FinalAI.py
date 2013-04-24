@@ -196,10 +196,10 @@ def computer_player(com, world, strat = "d"):
                     #closer in the y direction than the x direction; move in x direction
                     if delta_x >= unit.move:
                         #more than movement away; just move
-                        com.move_Unit(unit,world,unit.get_x()+math.copysign(unit.move,-delta_y),unit.get_y)
+                        com.move_Unit(unit,world,unit.get_x()+math.copysign(unit.move,-delta_y),unit.get_y())
                     else:
                         #we have some left over; move in both directions
-                        com.move_Unit(unit,world,unit.get_x()+delta_x,unit.get_y+(unit.move-delta_x))
+                        com.move_Unit(unit,world,unit.get_x()+delta_x,unit.get_y()+(unit.move-delta_x))
                 else:
                     #closer in the x direction than the y direction; move in y direction
                     if delta_y >= unit.move:
@@ -221,5 +221,4 @@ def computer_player(com, world, strat = "d"):
                 com.move_Unit(move_next[0],world,optimal_target.get_x()+1, optimal_target.get_y())
             else:
                 print "What the heck?"
-            print move_next[0].name+" attacked "+optimal_target.name+" at "+str(optimal_target.space)+" from "+str(move_next[0].space)
             com.act_Unit(move_next[0], world, optimal_target)

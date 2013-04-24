@@ -5,6 +5,7 @@ from AI_ZachAttempt import *
 import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
+import time
 
 def _delete_window():
     try:
@@ -16,7 +17,6 @@ def _destroy(event):
     pass
 
 def display(maps,root,good,bad):
-    print (root is None)
     for i,row in enumerate(maps.grid):
         for j,column in enumerate(row):
             if (maps.grid[i][j].unit == None):
@@ -28,6 +28,7 @@ def display(maps,root,good,bad):
                 if maps.grid[i][j].unit.player.name == 'human':
                     L = tk.Label(root, image = good)
                 else:
+                    print i,j
                     L = tk.Label(root, image = bad)
             L.grid(row=j,column=i)
 
@@ -75,6 +76,7 @@ while(len(human.units) == len(player_units) and len(com.units) == len(enemy_unit
     while (len(com.units) != len(com.actedUnits)):
         com.play_turn(level)
         display(level,root,player_img,enemy_img)
+        time.sleep(1)
     #reset everything
     human.movedUnits = []
     human.actedUnits = []

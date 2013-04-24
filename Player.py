@@ -68,4 +68,4 @@ class player(object):
 		if(actable == 1):	#if it hasnt acted, make it act
 			unit.attack_enemy(unit_to_attack)
 			self.actedUnits.append(unit)
-			print('unit has successfully attacked enemy unit')
+			print unit.name+" attacked "+unit_to_attack.name+" at "+str(unit_to_attack.space)+" from "+str(unit.space)

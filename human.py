@@ -53,4 +53,4 @@ def human_player(human, level):
                     if attack != "n":
                         for enemy in human.opponent.units:
                             if attack == enemy.name:
-                                unit.attack_enemy(enemy)
+                                human.act_Unit(unit, level, enemy)
