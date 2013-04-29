@@ -12,6 +12,7 @@ def display(maps):
 	forest_img = ImageTk.PhotoImage(Image.open('forest.gif'))
 	desert_img = ImageTk.PhotoImage(Image.open('desert.gif'))
 	mountain_img = ImageTk.PhotoImage(Image.open('mountain.gif'))
+	dirt_img = ImageTk.PhotoImage(Image.open('dirt.gif'))
 	for i,row in enumerate(board):
 		for j,column in enumerate(row):
 			if (maps.grid[i][j].unit == None):
@@ -21,6 +22,8 @@ def display(maps):
 					L = tk.Label(root, image = desert_img)
 				if maps.grid[i][j].terrain.terrainType = 'mountain':
 					L = tk.Label(root, image = mountain_img)
+				if maps.grid[i][j].terrain.terrainType = 'dirt':
+					L = tk.Label(root, image = dirt_img)
 				else:
 					L=tk.Label(root,text='    ',bg='green')
 			else:
