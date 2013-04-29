@@ -39,6 +39,7 @@ class terrain(object):
             self.evasionMod = 0
             self.defenseMod = 0
         if (terrainType == 'forest'):
+            print "forest"
             self.moveMod = 2
             self.evasionMod = 20
             self.defenseMod = 1

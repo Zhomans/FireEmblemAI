@@ -37,6 +37,9 @@ def display(maps,root,good,bad):
 level = fe_map()
 root=tk.Tk()
 
+#test terrain; make (1,1) a forest
+level.grid[1][1].terrain = terrain('forest')
+
 root.protocol("WM_DELETE_WINDOW", _delete_window)
 root.bind("<Destroy>", _destroy)
 
