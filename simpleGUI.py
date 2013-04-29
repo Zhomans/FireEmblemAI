@@ -15,11 +15,11 @@ def display(maps):
 	for i,row in enumerate(board):
 		for j,column in enumerate(row):
 			if (maps.grid[i][j].unit == None):
-				if maps.grid[i][j].terrain = forest:
+				if maps.grid[i][j].terrain.terrainType = 'forest':
 					L = tk.Label(root, image = forest_img)
-				if maps.grid[i][j].terrain = desert:
+				if maps.grid[i][j].terrain.terrainType = 'desert':
 					L = tk.Label(root, image = desert_img)
-				if maps.grid[i][j].terrain = mountain:
+				if maps.grid[i][j].terrain.terrainType = 'mountain':
 					L = tk.Label(root, image = mountain_img)
 				else:
 					L=tk.Label(root,text='    ',bg='green')
