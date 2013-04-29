@@ -2,6 +2,7 @@
 #Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
 #Artificial Intelligence, Olin College, Spring 13
 from feworld import *
+import random
 
 class unit:
     #units have:
@@ -11,7 +12,7 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
-    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry', name = "", owner = None):
+    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, accuracy = .9, unitType = 'infantry', name = "", owner = None):
         self.space = space
         self.hp = hp
         self.attack = attack
@@ -21,6 +22,7 @@ class unit:
         self.name = name
         world.grid[space.get_x()][space.get_y()].unit = self
         self.player = owner
+        self.accuracy = accuracy
     def __str__(self):
         return self.name
     def __repr__(self):
@@ -47,10 +49,18 @@ class unit:
         #I know this breaks proper getters and setters
         #we can make it better later.
         #we'll need to change it to add weapons anyway
-        enemy.hp = enemy.hp - (self.attack - (enemy.defense + enemy.space.defense()))
+        if random.random() < (self.accuracy-enemy.space.terrain.evasionMod):
+            enemy.hp = enemy.hp - (self.attack - (enemy.defense + enemy.space.defense()))
+            print self.name + " hit " + enemy.name
+        else:
+            print self.name + " missed " + enemy.name
         if enemy.hp > 0:
             #counterattack
-            self.hp = self.hp - (enemy.attack - (self.defense + self.space.defense()))
+            if random.random() < (enemy.accuracy-self.space.terrain.evasionMod):
+                self.hp = self.hp - (enemy.attack - (self.defense + self.space.defense()))
+                print enemy.name + " hit " + self.name
+            else:
+                print enemy.name + " missed " + self.name
             if self.hp <= 0:
                 self.die()
         else:
