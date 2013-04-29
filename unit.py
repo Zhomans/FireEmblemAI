@@ -47,10 +47,10 @@ class unit:
         #I know this breaks proper getters and setters
         #we can make it better later.
         #we'll need to change it to add weapons anyway
-        enemy.hp = enemy.hp - (self.attack - enemy.defense)
+        enemy.hp = enemy.hp - (self.attack - (enemy.defense + enemy.space.defense()))
         if enemy.hp > 0:
             #counterattack
-            self.hp = self.hp - (enemy.attack - self.defense)
+            self.hp = self.hp - (enemy.attack - (self.defense + self.space.defense()))
             if self.hp <= 0:
                 self.die()
         else:

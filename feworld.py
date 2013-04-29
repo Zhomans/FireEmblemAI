@@ -37,9 +37,15 @@ class terrain(object):
         if (terrainType == 'dirt'):
             self.moveMod = 0
             self.evasionMod = 0
+            self.defenseMod = 0
+        if (terrainType == 'forest'):
+            self.moveMod = 1
+            self.evasionMod = 20
+            self.defenseMod = 1
         else:
             self.moveMod = 0
             self.evasionMod = 0
+            self.defenseMod = 0
 
 class space(object):
     #needs to know if there's a unit on it
@@ -68,6 +74,8 @@ class space(object):
         return self.x
     def get_y(self):
         return self.y
+    def defense(self):
+        return self.terrain.defenseMod
     def add_unit(self, unit):
         #if the unit came from somewhere, delete it from there
         if unit.space != None:
