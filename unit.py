@@ -82,9 +82,9 @@ class unit:
         while recent_moves != []:
             considered_space = recent_moves.pop(0)
             for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
-                space = world.get_space(considered_space.get_x()+move_poss[0], considered_space.get_y()+move_poss[1])
-                new_move = considered_space[1] - space.terrain.moveMod
+                space = world.get_space(considered_space[0].get_x()+move_poss[0], considered_space[0].get_y()+move_poss[1])
                 if space != None:
+                    new_move = considered_space[1] - space.terrain.moveMod
                     if space.unit == None or space.unit == self:
                         if space not in move_list:
                             if new_move >= 0:
