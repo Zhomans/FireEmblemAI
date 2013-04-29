@@ -9,13 +9,20 @@ def display(maps):
 	root=tk.Tk()
 	player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
 	enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
+	forest_img = ImageTk.PhotoImage(Image.open('forest.gif'))
+	desert_img = ImageTk.PhotoImage(Image.open('desert.gif'))
+	mountain_img = ImageTk.PhotoImage(Image.open('mountain.gif'))
 	for i,row in enumerate(board):
 		for j,column in enumerate(row):
 			if (maps.grid[i][j].unit == None):
-				if ((i+j) % 2) ==0:
-					L=tk.Label(root,text='    ',bg='green')
+				if maps.grid[i][j].terrain = forest:
+					L = tk.Label(root, image = forest_img)
+				if maps.grid[i][j].terrain = desert:
+					L = tk.Label(root, image = desert_img)
+				if maps.grid[i][j].terrain = mountain:
+					L = tk.Label(root, image = mountain_img)
 				else:
-					L=tk.Label(root,text='    ',bg='dark green')
+					L=tk.Label(root,text='    ',bg='green')
 			else:
 				if maps.grid[i][j].unit.player.name == 'human':
 					L = tk.Label(root, image = player_img)
