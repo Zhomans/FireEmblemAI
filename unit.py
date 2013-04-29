@@ -76,24 +76,22 @@ class unit:
         world = start_space.world
         moves_remaining = self.move
         move_list = [start_space]
-        recent_moves = [start_space]
+        recent_moves = [(start_space,moves_remaining)]
         next_moves = []
 
-        while moves_remaining > 0:
-            while recent_moves != []:
-                considered_space = recent_moves.pop(0)
-                for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
-                    space = world.get_space(considered_space.get_x()+move_poss[0], considered_space.get_y()+move_poss[1])
-                    if space != None:
-                        if space.unit == None or space.unit == self:
-                            if space not in move_list:
+        while recent_moves != []:
+            considered_space = recent_moves.pop(0)
+            for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
+                space = world.get_space(considered_space.get_x()+move_poss[0], considered_space.get_y()+move_poss[1])
+                new_move = considered_space[1] - space.terrain.moveMod
+                if space != None:
+                    if space.unit == None or space.unit == self:
+                        if space not in move_list:
+                            if new_move >= 0:
                                 move_list.append(space)
-                                next_moves.append(space)
-
-            moves_remaining -= 1
-            recent_moves = next_moves
-            next_moves = []
-
+                                if new_move > 0:
+                                    recent_moves.append((space,new_move))
+            
         return move_list
 
     def get_attack_list(self):
