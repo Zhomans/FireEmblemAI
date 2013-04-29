@@ -80,7 +80,7 @@ class unit:
                                 move_list.append(space)
                                 next_moves.append(space)
 
-            moves_remaining -= 1
+            moves_remaining = moves_remaining - self.space.terrain.moveMod
             recent_moves = next_moves
             next_moves = []
 
