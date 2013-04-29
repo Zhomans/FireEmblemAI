@@ -74,7 +74,7 @@ def computer_player(com, world, strat = "d"):
 
                     #for every enemy, remember which units can attack it
                     #how much they can do, and where they can attack from
-                    enemies[enemy].append([unit, unit.attack - enemy.defense, surrounding_spaces])
+                    enemies[enemy].append([unit, (unit.attack - enemy.defense) * (unit.accuracy - enemy.space.terrain.evasionMod), surrounding_spaces]) #Attack * Hit % can be changed to a better scaler
                 else:
                 #not in range; remember distance
                     dist[unit][math.sqrt((enemy.get_x() - unit.get_x())**2 + (enemy.get_y() - unit.get_y())**2)] = enemy
