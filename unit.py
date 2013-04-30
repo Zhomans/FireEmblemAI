@@ -50,15 +50,17 @@ class unit:
         #we can make it better later.
         #we'll need to change it to add weapons anyway
         if random.random() < (self.accuracy-enemy.space.terrain.evasionMod):
-            enemy.hp = enemy.hp - (self.attack - (enemy.defense + enemy.space.defense()))
-            print self.name + " hit " + enemy.name
+            damage = (self.attack - (enemy.defense + enemy.space.defense()))
+            enemy.hp = enemy.hp - damage
+            print self.name + " hit " + enemy.name + " for " + damage + " damage."
         else:
             print self.name + " missed " + enemy.name
         if enemy.hp > 0:
             #counterattack
             if random.random() < (enemy.accuracy-self.space.terrain.evasionMod):
-                self.hp = self.hp - (enemy.attack - (self.defense + self.space.defense()))
-                print enemy.name + " hit " + self.name
+                damage = (enemy.attack - (self.defense + self.space.defense()))
+                self.hp = self.hp - damage
+                print enemy.name + " hit " + self.name + " for " damage " damage."
             else:
                 print enemy.name + " missed " + self.name
             if self.hp <= 0:
