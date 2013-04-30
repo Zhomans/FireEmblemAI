@@ -61,8 +61,6 @@ def display(maps, root):
 					L = tk.Label(root, image = forest_img)
 					L.image = forest_img
 				else:
-					L = tk.Label(root, image = enemy_img)
-					L.image = enemy_img
 					if maps.grid[i][j].unit.player.name == 'human':
 						L = tk.Label(root, image = forest_dude_img)
 						L.image = forest_dude_img

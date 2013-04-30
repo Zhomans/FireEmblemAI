@@ -4,8 +4,9 @@ def human_player(human, level):
     print "Moveable units: "
     for unit in human.units:
         if unit not in human.movedUnits:
-            print unit.name + " (HP:" + str(unit.hp) + ")"
+            print unit.name + " (HP:" + str(unit.hp) + "), " + str(unit.space)
 
+    print "\n"
     #take input from player
     command = raw_input("To move: Unit name, (x, y)\nTo lookup: lookup unit name\nTo quit: quit\n")
     if command == 'quit':
