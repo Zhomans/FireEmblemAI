@@ -6,6 +6,7 @@ import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
 import time
+from simpleGUI import display
 
 def _delete_window():
     try:
@@ -15,22 +16,6 @@ def _delete_window():
         pass
 def _destroy(event):
     pass
-
-def display(maps,root,good,bad):
-    for i,row in enumerate(maps.grid):
-        for j,column in enumerate(row):
-            if (maps.grid[i][j].unit == None):
-                if ((i+j) % 2) ==0:
-                    L=tk.Label(root,text='    ',bg='green')
-                else:
-                    L=tk.Label(root,text='    ',bg='dark green')
-            else:
-                if maps.grid[i][j].unit.player.name == 'human':
-                    L = tk.Label(root, image = good)
-                else:
-                    print i,j
-                    L = tk.Label(root, image = bad)
-            L.grid(row=j,column=i)
 
 
 #initialize everything
@@ -71,16 +56,16 @@ com.initialize(human,list(enemy_units),"com", "com")
 
 while(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
     #run while no units have died
-    display(level,root,player_img,enemy_img)
+    display(level,root)
     while(len(human.movedUnits) != len(human.units)):
         human.play_turn(level)
-        display(level,root,player_img,enemy_img)
+        display(level,root)
 
     if(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
         #only let the computer move if the game has not ended
         while (len(com.units) != len(com.actedUnits)):
             com.play_turn(level)
-            display(level,root,player_img,enemy_img)
+            display(level,root)
             time.sleep(1)
     #reset everything
     human.movedUnits = []
@@ -91,6 +76,6 @@ if len(human.units) != len(player_units):
     print "Computer wins!"
 else:
     print "Human wins!"
-display(level,root,player_img,enemy_img)
+display(level,root)
 root.destroy()
 root.mainloop() 
