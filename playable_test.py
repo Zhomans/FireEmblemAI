@@ -17,6 +17,7 @@ def _delete_window():
 def _destroy(event):
     pass
 
+
 #initialize everything
 level = fe_map()
 root=tk.Tk()
@@ -27,35 +28,8 @@ level.grid[1][1].terrain = terrain('forest')
 root.protocol("WM_DELETE_WINDOW", _delete_window)
 root.bind("<Destroy>", _destroy)
 
-
 player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
 enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
-forest_img = ImageTk.PhotoImage(Image.open('forest.gif'))
-desert_img = ImageTk.PhotoImage(Image.open('desert.gif'))
-mountain_img = ImageTk.PhotoImage(Image.open('mountain.gif'))
-dirt_img = ImageTk.PhotoImage(Image.open('dirt.gif'))
-
-def display(maps,root,good,bad, forest = forest_img, desert = desert_img, mountain = mountain_img, dirt = dirt_img):
-    for i,row in enumerate(maps.grid):
-        for j,column in enumerate(row):
-            if (maps.grid[i][j].unit == None):
-                if maps.grid[i][j].terrain.type == 'forest':
-                    L = tk.Label(root, image = forest)
-                elif maps.grid[i][j].terrain.type == 'desert':
-                    L = tk.Label(root, image = desert)
-                elif maps.grid[i][j].terrain.type == 'mountain':
-                    L = tk.Label(root, image = mountain)
-                elif maps.grid[i][j].terrain.type == 'dirt':
-                    L = tk.Label(root, image = dirt)
-                else:
-                    L=tk.Label(root,text='    ',bg='green')
-            else:
-                if maps.grid[i][j].unit.player.name == 'human':
-                    L = tk.Label(root, image = good)
-                else:
-                    print i,j
-                    L = tk.Label(root, image = bad)
-            L.grid(row=j,column=i)
 
 #player units
 #Looks like in 7 you get ~.03 units/space
