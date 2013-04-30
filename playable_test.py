@@ -28,9 +28,6 @@ level.grid[1][1].terrain = terrain('forest')
 root.protocol("WM_DELETE_WINDOW", _delete_window)
 root.bind("<Destroy>", _destroy)
 
-player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
-enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
-
 #player units
 #Looks like in 7 you get ~.03 units/space
 eliwood = unit(world = level, space = level.get_space(0,0), name = "eliwood")
