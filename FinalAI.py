@@ -74,7 +74,7 @@ def computer_player(com, world, strat = "d"):
 
                     #for every enemy, remember which units can attack it
                     #how much they can do, and where they can attack from
-                    enemies[enemy].append([unit, (unit.attack - enemy.defense) * (unit.accuracy - enemy.space.terrain.evasionMod), surrounding_spaces]) #Attack * Hit % can be changed to a better scaler
+                    enemies[enemy].append([unit, (unit.attack - enemy.defense - enemy.space.terrain.defenseMod) * (unit.accuracy - enemy.space.terrain.evasionMod), surrounding_spaces]) #Attack * Hit % can be changed to a better scaler
                 else:
                 #not in range; remember distance
                     dist[unit][math.sqrt((enemy.get_x() - unit.get_x())**2 + (enemy.get_y() - unit.get_y())**2)] = enemy
@@ -129,13 +129,7 @@ def computer_player(com, world, strat = "d"):
                     tempright=damage_checker(right_attacker,units_that_can_attack_right)
                     right_attacker=tempright[0]
                     units_that_can_attack_right=tempright[1]
-                    
-
-
-
-
-
-            
+                              
         
             while final_attackers == False:
                 #check whether the same unit is in two slots
