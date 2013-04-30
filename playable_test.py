@@ -1,7 +1,7 @@
 from Player import *
 from unit import *
 from feworld import *
-from AI_ZachAttempt import *
+from FinalAI import *
 import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
@@ -54,12 +54,19 @@ com = player()
 human = player(com, list(player_units), "human", "human")
 com.initialize(human,list(enemy_units),"com", "com")
 
+quit = False
+
 while(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
     #run while no units have died
     display(level,root)
     while(len(human.movedUnits) != len(human.units)):
-        human.play_turn(level)
+        quit = human.play_turn(level)
         display(level,root)
+        if quit:
+            break
+
+    if quit:
+        break
 
     if(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
         #only let the computer move if the game has not ended
@@ -74,6 +81,8 @@ while(len(human.units) == len(player_units) and len(com.units) == len(enemy_unit
     com.actedUnits = []
 if len(human.units) != len(player_units):
     print "Computer wins!"
+elif quit:
+    print "Quitting..."
 else:
     print "Human wins!"
 display(level,root)
