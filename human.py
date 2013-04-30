@@ -16,10 +16,14 @@ def human_player(human, level):
         #Not sure that's a good idea
         for unit in human.units:
             if unit.name == command[7:]:
+                print "\n"
                 print_unit(unit)
+                print "\n"
         for enemy in human.opponent.units:
             if enemy.name == command[7:]:
+                print "\n"
                 print_unit(enemy)
+                print "\n"
     for unit in human.units:
         to_move = command[0:command.find(',')]
         if unit.name == to_move:
@@ -72,6 +76,7 @@ def print_unit(unit):
     print "Name: " + unit.name
     print "Owner: " + unit.player.name
     print "Location: ("+str(unit.get_x())+", "+str(unit.get_y())+")"
+    print "Current Terrain: " + unit.space.terrain.type
     print "HP: " + str(unit.hp)
     print "Attack: " + str(unit.attack)
     print "Defense: " + str(unit.defense)
