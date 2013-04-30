@@ -38,15 +38,17 @@ class terrain(object):
     def __init__ (self, terrainType):
         self.terrainType = terrainType
         if (terrainType == 'dirt'):
+            self.type = terrainType
             self.moveMod = 1
             self.evasionMod = 0
             self.defenseMod = 0
         if (terrainType == 'forest'):
-            print "forest"
+            self.type = terrainType
             self.moveMod = 2
             self.evasionMod = 20
             self.defenseMod = 1
         else:
+            self.type = terrainType
             self.moveMod = 1
             self.evasionMod = 0
             self.defenseMod = 0
