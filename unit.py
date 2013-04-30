@@ -43,7 +43,7 @@ class unit:
             print str(self.name) + " moved to " + str(space)
             return 0
         else:
-            print "Can't move there!"
+            print "Can't move there!"+ str(space)
             return 1
     def attack_enemy(self, enemy):
         #I know this breaks proper getters and setters

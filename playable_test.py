@@ -31,7 +31,7 @@ root.bind("<Destroy>", _destroy)
 #player units
 #Looks like in 7 you get ~.03 units/space
 eliwood = unit(world = level, space = level.get_space(0,0), name = "eliwood")
-hector = unit(world = level, space = level.get_space(0,1), name = "hector")
+hector = unit(world = level, space = level.get_space(1,0), name = "hector")
 lyn = unit(world = level, space = level.get_space(2,0), name = "lyn", hp = 15)
 player_units = [eliwood, hector, lyn]
 
@@ -42,7 +42,7 @@ player_units = [eliwood, hector, lyn]
 sonia = unit(world = level, space = level.get_space(0,8), name = "sonia")
 limstella = unit(world = level, space = level.get_space(1,8),attack = 7,name ="limstella")
 enemy_units = [sonia, limstella]
-for i in range(4):
+for i in range(1):
     grunt = unit(world=level,space=level.get_space(2+i,8),name="grunt"+str(i))
     enemy_units.append(grunt)
 
