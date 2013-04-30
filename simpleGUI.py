@@ -31,7 +31,6 @@ def display(maps, root):
 					L = tk.Label(root, image = player_img)
 					L.image = player_img
 				else:
-					print i,j
 					L = tk.Label(root, image = enemy_img)
 					L.image = enemy_img
 			L.grid(row=j,column=i)

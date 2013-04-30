@@ -67,11 +67,13 @@ while(len(human.units) == len(player_units) and len(com.units) == len(enemy_unit
 
     if(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
         #only let the computer move if the game has not ended
+        print "\n"
         while (len(com.units) != len(com.actedUnits)):
             com.play_turn(level)
             time.sleep(1)
             display(level,root)
             time.sleep(1)
+        print "\n"
     #reset everything
     human.movedUnits = []
     human.actedUnits = []
