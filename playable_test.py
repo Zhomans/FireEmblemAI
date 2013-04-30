@@ -69,6 +69,7 @@ while(len(human.units) == len(player_units) and len(com.units) == len(enemy_unit
         #only let the computer move if the game has not ended
         while (len(com.units) != len(com.actedUnits)):
             com.play_turn(level)
+            time.sleep(1)
             display(level,root)
             time.sleep(1)
     #reset everything
