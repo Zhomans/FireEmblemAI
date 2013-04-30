@@ -2,6 +2,7 @@
 #Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
 #Artificial Intelligence, Olin College, Spring 13
 from feworld import *
+import random
 
 class unit:
     #units have:
@@ -11,7 +12,7 @@ class unit:
     #   their stats
     #all we need at the beginning is the space.
     #everything else will be constant.
-    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, unitType = 'infantry', name = "", owner = None):
+    def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, accuracy = .9, unitType = 'infantry', name = "", owner = None):
         self.space = space
         self.hp = hp
         self.attack = attack
@@ -21,6 +22,7 @@ class unit:
         self.name = name
         world.grid[space.get_x()][space.get_y()].unit = self
         self.player = owner
+        self.accuracy = accuracy
     def __str__(self):
         return self.name
     def __repr__(self):
@@ -38,7 +40,7 @@ class unit:
             space.add_unit(self)
             self.space = space
             self.move_list = self.get_move_list()
-            print "Moved to " + str(space)
+            print str(self.name) + " moved to " + str(space)
             return 0
         else:
             print "Can't move there!"+ str(space)
@@ -47,10 +49,21 @@ class unit:
         #I know this breaks proper getters and setters
         #we can make it better later.
         #we'll need to change it to add weapons anyway
-        enemy.hp = enemy.hp - (self.attack - enemy.defense)
+        if random.random() < (self.accuracy-enemy.space.terrain.evasionMod):
+            damage = (self.attack - (enemy.defense + enemy.space.defense()))
+            enemy.hp = enemy.hp - damage
+            print self.name + " hit " + enemy.name + " for " + str(damage) + " damage."
+        else:
+            print self.name + " missed " + enemy.name
         if enemy.hp > 0:
             #counterattack
-            self.hp = self.hp - (enemy.attack - self.defense)
+            if random.random() < (enemy.accuracy-self.space.terrain.evasionMod):
+                damage = (enemy.attack - (self.defense + self.space.defense()))
+                self.hp = self.hp - damage
+                print enemy.name + " hit " + self.name + " for " + str(damage) + " damage."
+
+            else:
+                print enemy.name + " missed " + self.name
             if self.hp <= 0:
                 self.die()
         else:
@@ -60,30 +73,29 @@ class unit:
         self.space.unit = None
         self.space = None
         self.player.units.remove(self)
+        print self.name + " has died."
 
     def get_move_list(self):
         start_space = self.get_space()
         world = start_space.world
         moves_remaining = self.move
         move_list = [start_space]
-        recent_moves = [start_space]
+        recent_moves = [(start_space,moves_remaining)]
         next_moves = []
 
-        while moves_remaining > 0:
-            while recent_moves != []:
-                considered_space = recent_moves.pop(0)
-                for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
-                    space = world.get_space(considered_space.get_x()+move_poss[0], considered_space.get_y()+move_poss[1])
-                    if space != None:
-                        if space.unit == None or space.unit == self:
-                            if space not in move_list:
+        while recent_moves != []:
+            considered_space = recent_moves.pop(0)
+            for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
+                space = world.get_space(considered_space[0].get_x()+move_poss[0], considered_space[0].get_y()+move_poss[1])
+                if space != None:
+                    new_move = considered_space[1] - space.terrain.moveMod
+                    if space.unit == None or space.unit == self:
+                        if space not in move_list:
+                            if new_move >= 0:
                                 move_list.append(space)
-                                next_moves.append(space)
-
-            moves_remaining -= 1
-            recent_moves = next_moves
-            next_moves = []
-
+                                if new_move > 0:
+                                    recent_moves.append((space,new_move))
+            
         return move_list
 
     def get_attack_list(self):

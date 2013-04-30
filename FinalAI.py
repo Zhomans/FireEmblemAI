@@ -1,4 +1,5 @@
 import math
+from feworld import *
 
 def check2(dir_attacker1,dir_attacker2,array1,array2):
     #top=1
@@ -90,7 +91,7 @@ def computer_player(com, world, strat = "t"):
 
                     #for every enemy, remember which units can attack it
                     #how much they can do, and where they can attack from
-                    enemies[enemy].append([unit, unit.attack - enemy.defense, surrounding_spaces])
+                    enemies[enemy].append([unit, (unit.attack - enemy.defense - enemy.space.terrain.defenseMod) * (unit.accuracy - enemy.space.terrain.evasionMod), surrounding_spaces]) #Attack * Hit % can be changed to a better scaler
                 else:
                 #not in range; remember distance
                     dist[unit][distance(enemy,unit)] = enemy
@@ -128,22 +129,28 @@ def computer_player(com, world, strat = "t"):
             #these next 4 for loops determine which unit can do the most damage
             #in the position that it's labelled for
 
-            temptop=damage_checker(top_attacker,units_that_can_attack_top)
-            top_attacker=temptop[0]
-            units_that_can_attack_top=temptop[1]
-
-            tempbottom=damage_checker(bottom_attacker,units_that_can_attack_bottom)
-            bottom_attacker=tempbottom[0]
-            units_that_can_attack_bottom=tempbottom[1]
-
-            tempright=damage_checker(right_attacker,units_that_can_attack_right)
-            right_attacker=tempright[0]
-            units_that_can_attack_right=tempright[1]
-
-            templeft=damage_checker(left_attacker,units_that_can_attack_left)
-            left_attacker=templeft[0]
-            units_that_can_attack_left=templeft[1]
-            
+            for i in range(3,-1,-1):
+                if isinstance(top_space, space):
+                    if top_space.terrain.defenseMod == i:
+                        temptop=damage_checker(top_attacker,units_that_can_attack_top)
+                        top_attacker=temptop[0]
+                        units_that_can_attack_top=temptop[1]
+                if isinstance(bottom_space, space):
+                    if bottom_space.terrain.defenseMod == i:
+                        tempbottom=damage_checker(bottom_attacker,units_that_can_attack_bottom)
+                        bottom_attacker=tempbottom[0]
+                        units_that_can_attack_bottom=tempbottom[1]
+                if isinstance(left_space, space):
+                    if left_space.terrain.defenseMod == i:
+                        templeft=damage_checker(left_attacker,units_that_can_attack_left)
+                        left_attacker=templeft[0]
+                        units_that_can_attack_left=templeft[1]
+                if isinstance(right_space, space):
+                    if right_space.terrain.defenseMod == i:
+                        tempright=damage_checker(right_attacker,units_that_can_attack_right)
+                        right_attacker=tempright[0]
+                        units_that_can_attack_right=tempright[1]
+                              
         
             while final_attackers == False:
                 #check whether the same unit is in two slots
