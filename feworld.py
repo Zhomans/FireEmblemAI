@@ -7,6 +7,8 @@ class fe_map(object):
     #why doesn't python have 2d arrays? It makes me sad.
     def __init__(self, x=10, y=10):
         self.grid = []
+        self.x = x
+        self.y = y
         for i in range(x):
             self.grid.append([])
             for j in range(y):
@@ -34,6 +36,7 @@ class terrain(object):
     #Has movement modifier(s) and an evasion modifier
     #Type of terrain is represented by a string
     def __init__ (self, terrainType):
+        self.terrainType = terrainType
         if (terrainType == 'dirt'):
             self.moveMod = 1
             self.evasionMod = 0
