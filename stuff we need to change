@@ -1,0 +1,18 @@
+PAss over friendly units
+Canvas and better GUI
+See enemy turns
+Fix agressive mode
+end turn
+when unit dies, it says "attacked from None"
+check win condition at all times, not just end of turn
+tricky ai not moving? terrain issue, probably
+why didn't it attack? terrain?
+
+
+
+
+
+"Boss" enemy that doesn't move?
+Healers?
+Ranged attacks?
+
