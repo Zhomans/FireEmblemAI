@@ -40,7 +40,7 @@ class unit:
             space.add_unit(self)
             self.space = space
             self.move_list = self.get_move_list()
-            print "Moved to " + str(space)
+            print str(self.name) + " moved to " + str(space)
             return 0
         else:
             print "Can't move there!"
