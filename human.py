@@ -26,11 +26,16 @@ def human_player(human, level):
                 print_unit(enemy)
                 print "\n"
     for unit in human.units:
-        to_move = command[0:command.find(',')]
+        comma = command.find(',')
+        to_move = command[0:comma]
         if unit.name == to_move:
-            x = int(command[command.find('(')+1:command.find('(')+2])
-            y = int(command[command.find(')')-1:command.find(')')])
-            moved = human.move_Unit(unit,level,x,y)
+            try:
+                x = int(command[command.find('(')+1:command.find(',',comma+1)])
+                y = int(command[command.find(',',comma+1)+1:command.find(')')])
+                moved = human.move_Unit(unit,level,x,y)
+            except ValueError:
+                print "Invalid input, try again."
+                return False
             #if an enemy next to the unit
             #ask if you want to attack
             #this is incredibly inefficient and hackish

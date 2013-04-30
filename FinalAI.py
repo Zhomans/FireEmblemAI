@@ -244,10 +244,11 @@ def computer_player(com, world, strat = "t"):
                     #closer in the y direction than the x direction; move in x direction
                     if delta_x >= unit.move:
                         #more than movement away; just move
-                        com.move_Unit(unit,world,unit.get_x()+math.copysign(unit.move,-delta_y),unit.get_y())
+                        #NEED TO FIX THIS TO NOT BE CONFUSED BY TERRAIN
+                        com.move_Unit(unit,world,int(unit.get_x()+math.copysign(unit.move,-delta_y)),unit.get_y())
                     else:
                         #we have some left over; move in both directions
-                        com.move_Unit(unit,world,unit.get_x()+delta_x,unit.get_y()+(unit.move-delta_x))
+                        com.move_Unit(unit,world,unit.get_x()+delta_x,int(unit.get_y()+(unit.move-delta_x)))
                 else:
                     #closer in the x direction than the y direction; move in y direction
                     if delta_y >= unit.move:
