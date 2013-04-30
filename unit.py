@@ -52,7 +52,7 @@ class unit:
         if random.random() < (self.accuracy-enemy.space.terrain.evasionMod):
             damage = (self.attack - (enemy.defense + enemy.space.defense()))
             enemy.hp = enemy.hp - damage
-            print self.name + " hit " + enemy.name + " for " + damage + " damage."
+            print self.name + " hit " + enemy.name + " for " + str(damage) + " damage."
         else:
             print self.name + " missed " + enemy.name
         if enemy.hp > 0:
@@ -60,7 +60,7 @@ class unit:
             if random.random() < (enemy.accuracy-self.space.terrain.evasionMod):
                 damage = (enemy.attack - (self.defense + self.space.defense()))
                 self.hp = self.hp - damage
-                print enemy.name + " hit " + self.name + " for " damage " damage."
+                print enemy.name + " hit " + self.name + " for " + str(damage) + " damage."
             else:
                 print enemy.name + " missed " + self.name
             if self.hp <= 0:
