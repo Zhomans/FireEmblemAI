@@ -1,11 +1,7 @@
 from Player import *
 from unit import *
 from feworld import *
-<<<<<<< HEAD
-#from FinalAI import *
-=======
 from FinalAI import *
->>>>>>> d140d46aa1e44b4182949d0ddaab95bb2bd82417
 import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
