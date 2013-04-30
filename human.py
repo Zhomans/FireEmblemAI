@@ -7,7 +7,9 @@ def human_player(human, level):
             print unit.name
 
     #take input from player
-    command = raw_input("To move: Unit name, (x, y)\n To lookup: lookup unit name\n")
+    command = raw_input("To move: Unit name, (x, y)\nTo lookup: lookup unit name\nTo quit: quit\n")
+    if command == 'quit':
+        return True
     if command[0:6] == 'lookup':
         #search for unit player looked up
         #it'll find duplicates
@@ -64,6 +66,7 @@ def human_player(human, level):
                         for enemy in human.opponent.units:
                             if attack == enemy.name:
                                 human.act_Unit(unit, level, enemy)
+    return False
                                 
 def print_unit(unit):
     print "Name: " + unit.name

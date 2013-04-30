@@ -40,8 +40,9 @@ class player(object):
 	def play_turn(self, world):
 		if self.type == "com":
 			computer_player(self,world,"a")
+			return False
 		else:
-			human_player(self, world)
+			return human_player(self, world)
 
 	def move_Unit(self, unit, world_map, new_location_x, new_location_y):
 		movable = 1
