@@ -73,6 +73,7 @@ class unit:
         self.space.unit = None
         self.space = None
         self.player.units.remove(self)
+        print self.name + " has died."
 
     def get_move_list(self):
         start_space = self.get_space()
