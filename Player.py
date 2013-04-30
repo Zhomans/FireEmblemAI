@@ -39,7 +39,7 @@ class player(object):
 
 	def play_turn(self, world):
 		if self.type == "com":
-			computer_player(self,world,"a")
+			computer_player(self,world,"t")
 		else:
 			human_player(self, world)
 
