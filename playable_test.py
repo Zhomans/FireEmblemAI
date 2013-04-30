@@ -6,6 +6,7 @@ import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
 import time
+from simpleGUI import display
 
 def _delete_window():
     try:
@@ -15,8 +16,6 @@ def _delete_window():
         pass
 def _destroy(event):
     pass
-
-
 
 
 #initialize everything
@@ -29,35 +28,8 @@ level.grid[1][1].terrain = terrain('forest')
 root.protocol("WM_DELETE_WINDOW", _delete_window)
 root.bind("<Destroy>", _destroy)
 
-
 player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
 enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
-forest_img = ImageTk.PhotoImage(Image.open('forest.gif'))
-desert_img = ImageTk.PhotoImage(Image.open('desert.gif'))
-mountain_img = ImageTk.PhotoImage(Image.open('mountain.gif'))
-dirt_img = ImageTk.PhotoImage(Image.open('dirt.gif'))
-
-def display(maps,root,good,bad, forest = forest_img, desert = desert_img, mountain = mountain_img, dirt = dirt_img):
-    for i,row in enumerate(maps.grid):
-        for j,column in enumerate(row):
-            if (maps.grid[i][j].unit == None):
-                if maps.grid[i][j].terrain.type == 'forest':
-                    L = tk.Label(root, image = forest)
-                elif maps.grid[i][j].terrain.type == 'desert':
-                    L = tk.Label(root, image = desert)
-                elif maps.grid[i][j].terrain.type == 'mountain':
-                    L = tk.Label(root, image = mountain)
-                elif maps.grid[i][j].terrain.type == 'dirt':
-                    L = tk.Label(root, image = dirt)
-                else:
-                    L=tk.Label(root,text='    ',bg='green')
-            else:
-                if maps.grid[i][j].unit.player.name == 'human':
-                    L = tk.Label(root, image = good)
-                else:
-                    print i,j
-                    L = tk.Label(root, image = bad)
-            L.grid(row=j,column=i)
 
 #player units
 #Looks like in 7 you get ~.03 units/space
@@ -84,16 +56,16 @@ com.initialize(human,list(enemy_units),"com", "com")
 
 while(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
     #run while no units have died
-    display(level,root,player_img,enemy_img)
+    display(level,root)
     while(len(human.movedUnits) != len(human.units)):
         human.play_turn(level)
-        display(level,root,player_img,enemy_img)
+        display(level,root)
 
     if(len(human.units) == len(player_units) and len(com.units) == len(enemy_units)):
         #only let the computer move if the game has not ended
         while (len(com.units) != len(com.actedUnits)):
             com.play_turn(level)
-            display(level,root,player_img,enemy_img)
+            display(level,root)
             time.sleep(1)
     #reset everything
     human.movedUnits = []
@@ -104,6 +76,6 @@ if len(human.units) != len(player_units):
     print "Computer wins!"
 else:
     print "Human wins!"
-display(level,root,player_img,enemy_img)
+display(level,root)
 root.destroy()
 root.mainloop() 
