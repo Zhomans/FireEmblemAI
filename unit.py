@@ -89,13 +89,15 @@ class unit:
                 space = world.get_space(considered_space[0].get_x()+move_poss[0], considered_space[0].get_y()+move_poss[1])
                 if space != None:
                     new_move = considered_space[1] - space.terrain.moveMod
-                    if space.unit == None or space.unit == self:
+                    if space.unit in self.player.units or space.unit==None:
                         if space not in move_list:
                             if new_move >= 0:
                                 move_list.append(space)
                                 if new_move > 0:
                                     recent_moves.append((space,new_move))
-            
+        for space in move_list:
+            if space.unit != None and space.unit != self:
+                move_list.remove(space)
         return move_list
 
     def get_attack_list(self):
