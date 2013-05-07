@@ -2,7 +2,6 @@ Canvas and better GUI
 See enemy turns
 Fix agressive mode
 when unit dies, it says "attacked from None"
-check win condition at all times, not just end of turn
 tricky ai not moving? terrain issue, probably
 why didn't it attack? terrain?
 

@@ -272,3 +272,6 @@ def computer_player(com, world, strat = "t"):
             else:
                 print "What the heck?"
             com.act_Unit(move_next[0], world, optimal_target)
+            if optimal_target not in com.opponent.units:
+                com.movedUnits = com.units
+                com.actedUnits = com.units

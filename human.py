@@ -78,6 +78,9 @@ def human_player(human, level):
                         for enemy in human.opponent.units:
                             if attack == enemy.name:
                                 human.act_Unit(unit, level, enemy)
+                                if enemy not in human.opponent.units:
+                                    human.movedUnits = human.units
+                                    return False
     return False
                                 
 def print_unit(unit):
