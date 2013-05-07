@@ -8,9 +8,11 @@ def human_player(human, level):
 
     print "\n"
     #take input from player
-    command = raw_input("To move: Unit name, (x, y)\nTo lookup: lookup unit name\nTo quit: quit\n")
+    command = raw_input("To move: Unit name, (x, y)\nTo lookup: lookup unit name\nTo end turn: end\nTo quit: quit\n")
     if command == 'quit':
         return True
+    if command == 'end':
+        human.movedUnits = human.units
     if command[0:6] == 'lookup':
         #search for unit player looked up
         #it'll find duplicates
