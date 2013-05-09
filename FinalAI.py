@@ -69,12 +69,12 @@ def find_closest(desired, move_list):
     #init outputs
     distance = space_distance(desired,move_list[0])
     closest = move_list[0]
-    for space in move_list:
-        dist = space_distance(desired, space)
+    for place in move_list:
+        dist = space_distance(desired, place)
         if dist < distance:
             distance = distance
-            closest = space
-    return space
+            closest = place
+    return place
 
 def computer_player(com, world, strat = "t"):
     damage = dict()
@@ -246,8 +246,17 @@ def computer_player(com, world, strat = "t"):
                 com.move_Unit(unit,world, unit.get_x(),unit.get_y())
             #if unit can get closer before getting attacked, move it the right amount closer
             elif man_dist>dist[unit][min_dist].move+2:
-                left=man_dist-(dist[unit][min_dist].move+2)
-                be_tricky(unit, world, delta_x,delta_y,left,com)
+                #find the closest space the enemy can attack to you
+                close_attack = find_closest(unit.get_space(), dist[unit][min_dist].get_attack_list())
+                #find which side of that you want to be on
+                possible = list()
+                for side in ([0,1],[0,-1],[1,0],[-1,0]):
+                    poss_space = world.get_space(close_attack.get_x()+side[0],close_attack.get_y()+side[1])
+                    if poss_space not in dist[unit][min_dist].get_attack_list() and poss_space != None:
+                        possible.append(poss_space)
+                desired = find_closest(unit.get_space(),possible)
+                final = find_closest(desired, unit.get_move_list())
+                com.move_Unit(unit,world,final.get_x(),final.get_y())
             #if unit can get hit next turn, leave it there for now.
             elif man_dist<dist[unit][min_dist].move+2:
                 com.move_Unit(unit,world, unit.get_x(),unit.get_y())

@@ -102,7 +102,7 @@ class unit:
 
     def get_attack_list(self):
         world = self.space.world
-        move_list = self.move_list
+        move_list = self.get_move_list()
         attack_list = []
         for space in move_list:
             in_range = []
