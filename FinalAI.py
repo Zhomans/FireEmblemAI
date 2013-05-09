@@ -238,7 +238,6 @@ def computer_player(com, world, strat = "t"):
                         possible.append(poss_space)
                         if poss_space in unit.get_move_list():
                             desired = poss_space
-                            break
                 if desired == None:
                     desired = find_closest(unit.get_space(),possible)
                 final = find_closest(desired, unit.get_move_list())
