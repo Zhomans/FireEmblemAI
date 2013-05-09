@@ -20,7 +20,7 @@ class unit:
         self.move = move
         self.unitType = unitType
         self.name = name
-        world.grid[space.get_x()][space.get_y()].unit = self
+        space.add_unit(self)
         self.player = owner
         self.accuracy = accuracy
     def __str__(self):
@@ -43,7 +43,7 @@ class unit:
             print str(self.name) + " moved to " + str(space)
             return 0
         else:
-            print "Can't move there!"+ str(space)
+            print self.name+" can't move to "+ str(space)
             return 1
     def attack_enemy(self, enemy):
         #I know this breaks proper getters and setters
@@ -86,18 +86,18 @@ class unit:
         while recent_moves != []:
             considered_space = recent_moves.pop(0)
             for move_poss in ([0, 1], [0, -1], [1, 0], [-1, 0]):
-                space = world.get_space(considered_space[0].get_x()+move_poss[0], considered_space[0].get_y()+move_poss[1])
-                if space != None:
-                    new_move = considered_space[1] - space.terrain.moveMod
-                    if space.unit in self.player.units or space.unit==None:
-                        if space not in move_list:
+                place = world.get_space(considered_space[0].get_x()+move_poss[0], considered_space[0].get_y()+move_poss[1])
+                if place != None:
+                    new_move = considered_space[1] - place.terrain.moveMod
+                    if place.unit in self.player.units or place.unit==None:
+                        if place not in move_list:
                             if new_move >= 0:
-                                move_list.append(space)
+                                move_list.append(place)
                                 if new_move > 0:
-                                    recent_moves.append((space,new_move))
-        for space in move_list:
-            if space.unit != None and space.unit != self:
-                move_list.remove(space)
+                                    recent_moves.append((place,new_move))
+        for loc in move_list:
+            if loc.unit != None and loc.unit != self:
+                move_list.remove(loc)
         return move_list
 
     def get_attack_list(self):

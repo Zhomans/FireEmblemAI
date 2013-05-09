@@ -19,7 +19,7 @@ def _destroy(event):
     pass
 
 #pass in the GUI, map, and both players
-def play_game(root, level, player1, player2):
+def play_game(root, level, player1, player2, strat1 = "a", strat2 = "a"):
 
     root.protocol("WM_DELETE_WINDOW", _delete_window)
     root.bind("<Destroy>", _destroy)
@@ -34,7 +34,7 @@ def play_game(root, level, player1, player2):
         #run while no units have died
         display(level,root)
         while(len(player1.movedUnits) != len(player1.units)):
-            quit = player1.play_turn(level)
+            quit = player1.play_turn(level, strat1)
             display(level,root)
             if quit:
                 break
@@ -46,7 +46,7 @@ def play_game(root, level, player1, player2):
             #only let the computer move if the game has not ended
             print "\n"
             while (len(player2.units) != len(player2.actedUnits)):
-                player2.play_turn(level,"t")
+                player2.play_turn(level, strat2)
                 time.sleep(1)
                 display(level,root)
                 time.sleep(1)

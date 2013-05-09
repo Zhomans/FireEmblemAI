@@ -39,4 +39,4 @@ com = player()
 human = player(com, list(player_units), "human", "human")
 com.initialize(human,list(enemy_units),"com", "com")
 
-play_game(root, level, human, com)
+play_game(root, level, human, com, strat2 = "t")
