@@ -15,10 +15,8 @@ def check2(dir_attacker1,dir_attacker2,array1,array2):
         return new_dir_attacker
 
     if dir_attacker1 == dir_attacker2 and dir_attacker1 != None and array1 != [] and array2 != []:
-
         new_dir_attacker1=check(array1)
         new_dir_attacker2=check(array2)
-
         if new_dir_attacker1[1] > new_dir_attacker2[1]:
             dir_attacker1 = new_dir_attacker1
             array1.remove(new_dir_attacker1)
@@ -42,22 +40,6 @@ def damage_checker(dir_attacker,array):
     
 def distance(unit1,unit2):
     return math.sqrt((unit1.get_x() - unit2.get_x())**2 + (unit1.get_y() - unit2.get_y())**2)
-    
-def be_tricky(unit,world,delta_x,delta_y,left,com):
-    if left<=0:
-        work=com.move_Unit(unit,world,unit.get_x(),unit.get_y())
-    if left>unit.move:
-        left=unit.move
-    tomovex=tomovey=int(left/2)
-    #Might be an odd number otherwise it just adds 0
-    if abs(delta_x)>abs(delta_y):
-        tomovex+=left%2 
-    else:
-        tomovey+=left%2
-    work=com.move_Unit(unit,world,unit.get_x()+int(math.copysign(tomovex,-delta_x)),unit.get_y()+int(math.copysign(tomovey,-delta_y)))
-    if work==0:
-        com.move_Unit(unit,world,unit.get_x(),unit.get_y())
-        #be_tricky(unit,world,delta_x,delta_y,left-1,com)
         
 #calculates 'square' distance between two spaces
 def space_distance(space1, space2):
@@ -87,11 +69,11 @@ def computer_player(com, world, strat = "t"):
         enemies[enemy] = []
         enemy_attack[enemy] = []
 
+    #figure out which units can attack
     available_units = list()
     for unit in com.units:
         if unit not in com.actedUnits:
             available_units.append(unit)
-    print available_units
 
     for unit in available_units:
         #unit is of type unit
@@ -222,24 +204,21 @@ def computer_player(com, world, strat = "t"):
         if (attacker != None and attacker[0].attack > move_next[0].attack):
             move_next = attacker
 
-    #figure out which slot the next unit to move was in then move it there
-    slot = enemy_attack[optimal_target].index(move_next)
+    #deal with what happens if no one can attack
     if move_next == None and strat == "d":
-        #no one can attack, so just finish the turn
+        #defensive strategy: just stay in place
         com.movedUnits = com.units
         com.actedUnits = com.units
     elif move_next==None and strat == "t":
-        #tricky strategy, move just out of range of player units.
+        #tricky strategy: move just out of range of player units
         #I am making the assumption right now that the closest enemy has the most important threat zone. 
         #This is incorrect, example a pegasus knight 7 spaces away and a lord 6 spaces. pegasus is more of a threat.
-        #print "working"
         for unit in dist.keys():
             dists = dist[unit].keys()[:]
             dists.sort()
             min_dist = dists[0]
             delta_x = unit.get_x() - dist[unit][min_dist].get_x()
             delta_y = unit.get_y() - dist[unit][min_dist].get_y()
-            #print "Closest unit to "+unit.name+" is "+dist[unit][min_dist].name+" since "+unit.name+" is "+str(dists[0])+"and others are"+str(dists) 
             man_dist=abs(delta_x)+abs(delta_y)
             #if unit is already in sweet spot, don't move it
             if man_dist==dist[unit][min_dist].move+2:
@@ -247,7 +226,6 @@ def computer_player(com, world, strat = "t"):
             #if unit can get closer before getting attacked, move it the right amount closer
             elif man_dist>dist[unit][min_dist].move+2:
                 #find the closest space the enemy can attack to you
-                print dist[unit][min_dist].name
                 close_attack = find_closest(unit.get_space(), dist[unit][min_dist].get_attack_list())
                 #find which side of that you want to be on
                 possible = list()
@@ -263,8 +241,9 @@ def computer_player(com, world, strat = "t"):
                 com.move_Unit(unit,world, unit.get_x(),unit.get_y())
         com.actedUnits = com.units
         com.movedUnits = com.units
-    elif move_next == None and strat == "a":
-        #agressive strategy; move units
+    elif move_next == None:
+        #agressive strategy: chaaarge!
+        #this is the default strategy
         for unit in dist.keys():
             dists = dist[unit].keys()[:]
             dists.sort()
@@ -275,6 +254,9 @@ def computer_player(com, world, strat = "t"):
         com.movedUnits = com.units
                                 
     else:
+        #can attack, so do it!
+        #figure out which slot the next unit to move was in then move it there
+        slot = enemy_attack[optimal_target].index(move_next)
         if slot == 0:
             com.move_Unit(move_next[0],world,optimal_target.get_x(), optimal_target.get_y()-1)
         elif slot == 1:
