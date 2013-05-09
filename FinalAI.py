@@ -213,32 +213,36 @@ def computer_player(com, world, strat = "t"):
         #tricky strategy: move just out of range of player units
         #I am making the assumption right now that the closest enemy has the most important threat zone. 
         #This is incorrect, example a pegasus knight 7 spaces away and a lord 6 spaces. pegasus is more of a threat.
+        #construct a no-go zone of spaces enemies can attack
+        no_go = []
+        for enemy in com.opponent.units:
+            for tile in enemy.get_attack_list():
+                if tile not in no_go:
+                     no_go.append(tile)
+
+        #this for loop deals with all units that can't attack
         for unit in dist.keys():
-            dists = dist[unit].keys()[:]
-            dists.sort()
-            min_dist = dists[0]
-            delta_x = unit.get_x() - dist[unit][min_dist].get_x()
-            delta_y = unit.get_y() - dist[unit][min_dist].get_y()
-            man_dist=abs(delta_x)+abs(delta_y)
-            #if unit is already in sweet spot, don't move it
-            if man_dist==dist[unit][min_dist].move+2:
+            edge = find_closest(unit.get_space(),no_go)
+            if space_distance(unit.get_space(),edge) == 1 or unit.get_space() in no_go:
+                #in the sweet spot or inside the threat range; stay put
                 com.move_Unit(unit,world, unit.get_x(),unit.get_y())
-            #if unit can get closer before getting attacked, move it the right amount closer
-            elif man_dist>dist[unit][min_dist].move+2:
-                #find the closest space the enemy can attack to you
-                close_attack = find_closest(unit.get_space(), dist[unit][min_dist].get_attack_list())
+            else:
+                #not on the edge of the attack range, and not inside the attack range
+                #move to the edge
                 #find which side of that you want to be on
                 possible = list()
+                desired = None
                 for side in ([0,1],[0,-1],[1,0],[-1,0]):
-                    poss_space = world.get_space(close_attack.get_x()+side[0],close_attack.get_y()+side[1])
-                    if poss_space not in dist[unit][min_dist].get_attack_list() and poss_space != None:
+                    poss_space = world.get_space(edge.get_x()+side[0],edge.get_y()+side[1])
+                    if poss_space not in no_go and poss_space != None:
                         possible.append(poss_space)
-                desired = find_closest(unit.get_space(),possible)
+                        if poss_space in unit.get_move_list():
+                            desired = poss_space
+                            break
+                if desired == None:
+                    desired = find_closest(unit.get_space(),possible)
                 final = find_closest(desired, unit.get_move_list())
                 com.move_Unit(unit,world,final.get_x(),final.get_y())
-            #if unit can get hit next turn, leave it there for now.
-            elif man_dist<dist[unit][min_dist].move+2:
-                com.move_Unit(unit,world, unit.get_x(),unit.get_y())
         com.actedUnits = com.units
         com.movedUnits = com.units
     elif move_next == None:

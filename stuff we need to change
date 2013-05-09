@@ -1,41 +1,6 @@
 Canvas and better GUI
 See enemy turns
-Fix agressive mode
 when unit dies, it says "attacked from None"
-got two units to stand on top of each other?
-(
-[sonia, limstella, grunt0]
-limstella moved to (0,8)
-Can't move there!(0,8)
-grunt0 moved to (1,8)
-
-lookup limstella
-
-Name: limstella
-Owner: com
-Location: (0, 8)
-Current Terrain: dirt
-HP: 20
-Attack: 7
-Defense: 0
-Movement: 5
-Unit Type: infantry
-
-lookup sonia
-
-Name: sonia
-Owner: com
-Location: (0, 8)
-Current Terrain: dirt
-HP: 20
-Attack: 10
-Defense: 0
-Movement: 5
-Unit Type: infantry
-)
-
-
-
 
 
 "Boss" enemy that doesn't move?
