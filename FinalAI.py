@@ -61,7 +61,7 @@ def be_tricky(unit,world,delta_x,delta_y,left,com):
         
 #calculates 'square' distance between two spaces
 def space_distance(space1, space2):
-    return abs(space1.get_x() - space2.get_x()) + abs(space1.get_y() - space2.get_y())
+    return (abs(space1.get_x() - space2.get_x()) + abs(space1.get_y() - space2.get_y()))
     
 #finds the closest space in the list to the desired space
 #desired is a space object, move_list is a list of space objects
@@ -72,9 +72,9 @@ def find_closest(desired, move_list):
     for place in move_list:
         dist = space_distance(desired, place)
         if dist < distance:
-            distance = distance
+            distance = dist
             closest = place
-    return place
+    return closest
 
 def computer_player(com, world, strat = "t"):
     damage = dict()
@@ -195,7 +195,7 @@ def computer_player(com, world, strat = "t"):
 
         ###################################################################
 
-        attackers = [top_attacker, bottom_attacker, left_attacker, right_attacker]
+        attackers = [top_attacker,bottom_attacker,left_attacker,right_attacker]
         total_damage = 0.0
         for attacker in attackers:
             if attacker != None:
@@ -211,7 +211,7 @@ def computer_player(com, world, strat = "t"):
         if optimal_target == None:
             optimal_target = enemy
         else:
-            if damage[optimal_target]/optimal_target.hp < damage[enemy]/enemy.hp:
+            if damage[optimal_target]/optimal_target.hp<damage[enemy]/enemy.hp:
                 optimal_target = enemy
 
     #Only the strongest attacks before recalculation
@@ -247,6 +247,7 @@ def computer_player(com, world, strat = "t"):
             #if unit can get closer before getting attacked, move it the right amount closer
             elif man_dist>dist[unit][min_dist].move+2:
                 #find the closest space the enemy can attack to you
+                print dist[unit][min_dist].name
                 close_attack = find_closest(unit.get_space(), dist[unit][min_dist].get_attack_list())
                 #find which side of that you want to be on
                 possible = list()
