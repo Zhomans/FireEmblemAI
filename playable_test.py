@@ -19,8 +19,8 @@ level.grid[1][1].terrain = terrain('forest')
 #player units
 #Looks like in 7 you get ~.03 units/space
 eliwood = unit(world = level, space = level.get_space(0,0), name = "eliwood")
-hector = unit(world = level, space = level.get_space(1,0), name = "hector")
-lyn = unit(world = level, space = level.get_space(2,0), name = "lyn", hp = 15)
+hector = unit(world=level,space=level.get_space(1,0), name = "hector", move=3)
+lyn = unit(world=level,space=level.get_space(2,0),name ="lyn", hp = 15, move=6)
 player_units = [eliwood, hector, lyn]
 
 #enemy units
