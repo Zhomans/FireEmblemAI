@@ -37,9 +37,9 @@ class player(object):
 			for unit in units:
 				unit.player=self
 
-	def play_turn(self, world):
+	def play_turn(self, world, strat = "a"):
 		if self.type == "com":
-			computer_player(self,world,"t")
+			computer_player(self,world,strat)
 			return False
 		else:
 			return human_player(self, world)

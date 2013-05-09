@@ -46,7 +46,7 @@ def play_game(root, level, player1, player2):
             #only let the computer move if the game has not ended
             print "\n"
             while (len(player2.units) != len(player2.actedUnits)):
-                player2.play_turn(level)
+                player2.play_turn(level,"t")
                 time.sleep(1)
                 display(level,root)
                 time.sleep(1)
