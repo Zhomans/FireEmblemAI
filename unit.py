@@ -4,14 +4,16 @@
 from feworld import *
 import random
 
+#A Unit is the basic moveable piece in Fire Emblem. They have a number of stats, an owner, and a name. They occupy a space. The death of a unit means defeat.
+
 class unit:
-    #units have:
-    #   the space they're on
-    #   their class
-    #   their weapons
-    #   their stats
-    #all we need at the beginning is the space.
-    #everything else will be constant.
+    #Units have the following:
+    #   - Their World
+    #   - Their Current Space
+    #   - Their Major Stats
+    #   - Their Class
+    #   - Their Name
+    #   - Their Owner
     def __init__(self, world, space = None, hp = 20, attack = 10, defense = 0, move = 5, accuracy = .9, unitType = 'infantry', name = "", owner = None):
         self.space = space
         self.hp = hp
@@ -23,19 +25,28 @@ class unit:
         space.add_unit(self)
         self.player = owner
         self.accuracy = accuracy
+
     def __str__(self):
         return self.name
+
     def __repr__(self):
         return self.name
+
     def get_space(self):
+        #Returns unit's space.
         return self.space
-    #doing unit.get_space().get_x() is driving me crazy....
+
     def get_x(self):
+        #Returns x location.
         return self.space.get_x()
+
     def get_y(self):
+        #Returns y location.
         return self.space.get_y()
+
     def move_unit(self, space):
-        self.move_list = self.get_move_list() #This should go somewhere else.
+        #Moves a unit to a new space, if possible.
+        self.move_list = self.get_move_list()
         if space in self.move_list:
             space.add_unit(self)
             self.space = space
@@ -46,17 +57,19 @@ class unit:
             print self.name+" can't move to "+ str(space)
             return 1
     def attack_enemy(self, enemy):
-        #I know this breaks proper getters and setters
-        #we can make it better later.
-        #we'll need to change it to add weapons anyway
+        #Initiates an attack sequence.
+
+        #If the attack hits, do the appropriate damage. Others, nothing happens.
         if random.random() < (self.accuracy-enemy.space.terrain.evasionMod):
             damage = (self.attack - (enemy.defense + enemy.space.defense()))
             enemy.hp = enemy.hp - damage
             print self.name + " hit " + enemy.name + " for " + str(damage) + " damage."
         else:
             print self.name + " missed " + enemy.name
+
+        #Checks to see if the enemy is dead. If not, counterattack.
         if enemy.hp > 0:
-            #counterattack
+        #After an attack comes a counterattack. It's the exact reverse of an attack.
             if random.random() < (enemy.accuracy-self.space.terrain.evasionMod):
                 damage = (enemy.attack - (self.defense + self.space.defense()))
                 self.hp = self.hp - damage
@@ -69,13 +82,15 @@ class unit:
         else:
             enemy.die()
 
-    def die(self):
+    def die(self): 
+        #The unit dies.
         self.space.unit = None
         self.space = None
         self.player.units.remove(self)
         print self.name + " has died."
 
     def get_move_list(self):
+        #Returns the list of possible movements of a unit. Does a basic breath-first search. Considers movement modifers, terrain, and other units.
         start_space = self.get_space()
         world = start_space.world
         moves_remaining = self.move
@@ -101,6 +116,7 @@ class unit:
         return move_list
 
     def get_attack_list(self):
+        #Expands one more space out from the movement list to determine the possible spaces a unit can attack.
         world = self.space.world
         move_list = self.get_move_list()
         attack_list = []
