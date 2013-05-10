@@ -1,3 +1,8 @@
+#Player.py
+#Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
+#Artificial Intelligence, Olin College, Spring 13
+
+
 from feworld import *
 from unit import*
 from FinalAI import *
