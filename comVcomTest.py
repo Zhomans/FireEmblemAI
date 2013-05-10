@@ -1,3 +1,8 @@
+#comVcomTest.py
+#Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
+#Artificial Intelligence, Olin College, Spring 13
+
+
 from Player import *
 from unit import *
 from feworld import *
@@ -38,8 +43,8 @@ for i in range(8):
 
 com = player()
 com2 = player()
-
+# create players
 com.initialize(com2,list(enemy_units),"com", "com")
 com2.initialize(com, list(enemy2_units), "com2", "com")
-
+#start the game
 play_game(root, level, com2, com, "t", "a")
