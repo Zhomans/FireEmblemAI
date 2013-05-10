@@ -6,6 +6,6 @@ playable_test.py features a small map, with a small number of player units and s
 
 bigger_test.py features a larger map with numerous player and enemy units.
 
-comVcomTest.py pits the Aggressive agent against the Tricky agent and outputs the victor.
+comVcomTest.py pits the Aggressive agent against the Tricky agent and outputs the victor. Player 1 is the aggressive agent, Player 2 is the Tricky agent.
 
 Instructions to play playable_test.py and bigger_test.py appear within the game itself.
