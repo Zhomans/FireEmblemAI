@@ -1,3 +1,7 @@
+#simpleGUI.py
+#Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
+#Artificial Intelligence, Olin College, Spring 13
+
 import Tkinter as tk
 import feworld
 from PIL import ImageTk
