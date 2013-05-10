@@ -1,3 +1,8 @@
+#bigger_test.py
+#Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
+#Artificial Intelligence, Olin College, Spring 13
+
+
 from Player import *
 from unit import *
 from feworld import *
