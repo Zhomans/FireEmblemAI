@@ -2,28 +2,25 @@
 #Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
 #Artificial Intelligence, Olin College, Spring 13
 
+#Runs the game for our various tests
 
-from Player import *
-from unit import *
-from feworld import *
-from FinalAI import *
 import Tkinter as tk
 from PIL import ImageTk
 from PIL import Image
 import time
 from simpleGUI import display
 
-
+#Prevent the player from closing the window unless they quit the game
 def _delete_window():
     try:
         print "Prof Oak: You can't run from a trainer battle!"
-        #root.destroy()
     except:
         pass
 def _destroy(event):
     pass
 
-#pass in the GUI, map, and both players
+#Runs the game.
+#Takes the GUI, map, both players, and AI strategies (if applicable)
 def play_game(root, level, player1, player2, strat1 = "a", strat2 = "a"):
 
     root.protocol("WM_DELETE_WINDOW", _delete_window)
@@ -31,7 +28,7 @@ def play_game(root, level, player1, player2, strat1 = "a", strat2 = "a"):
 
     quit = False
 
-    #get the # of units to start so you can tell when one dies
+    #Get the # of units to start so you can tell when one dies
     p1units = len(player1.units)
     p2units = len(player2.units)
 
@@ -48,7 +45,7 @@ def play_game(root, level, player1, player2, strat1 = "a", strat2 = "a"):
             break
 
         if(len(player1.units) == p1units and len(player2.units) == p2units):
-            #only let the computer move if the game has not ended
+            #only let player 2 move if game is not over
             print "\n"
             while (len(player2.units) != len(player2.actedUnits)):
                 player2.play_turn(level, strat2)
@@ -56,6 +53,7 @@ def play_game(root, level, player1, player2, strat1 = "a", strat2 = "a"):
                 display(level,root)
                 time.sleep(1)
             print "\n"
+            
         #reset everything
         player1.movedUnits = []
         player1.actedUnits = []

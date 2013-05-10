@@ -27,7 +27,7 @@ player_units = [eliwood, hector, lyn]
 #Create enemy units
 sonia = unit(world = level, space = level.get_space(0,8), name = "sonia")
 erik = unit(world = level, space = level.get_space(1,8),attack = 7,name="erik")
-enemy_units = [sonia, limstella]
+enemy_units = [sonia, erik]
 for i in range(1):
     grunt = unit(world=level,space=level.get_space(2+i,8),name="grunt"+str(i))
     enemy_units.append(grunt)
