@@ -1,3 +1,8 @@
+#human.py
+#Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
+#Artificial Intelligence, Olin College, Spring 13
+
+
 def human_player(human, level):
     #tell player what units can move.
     #there must be a better way
