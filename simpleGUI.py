@@ -4,6 +4,8 @@ from PIL import ImageTk
 from PIL import Image
 
 def display(maps, root):
+	
+	#get all of the imanges
 	player_img = ImageTk.PhotoImage(Image.open('dude.gif'))
 	enemy_img = ImageTk.PhotoImage(Image.open('bandit.gif'))
 	forest_img = ImageTk.PhotoImage(Image.open('forest.gif'))
@@ -18,6 +20,12 @@ def display(maps, root):
 	desert_bandit_img = ImageTk.PhotoImage(Image.open('desert_bandit.gif'))
 	mountain_bandit_img = ImageTk.PhotoImage(Image.open('mountain_bandit.gif'))
 	dirt_bandit_img = ImageTk.PhotoImage(Image.open('dirt_bandit.gif'))
+	
+	# loop through each possition in the grid
+	# check for terrain type
+	# check for unit type
+	# select the image that has the correct unit and terrain
+	# output the image
 	for i in range(maps.x):
 		for j in range(maps.y):
 			if maps.grid[i][j].terrain.terrainType == 'desert':
