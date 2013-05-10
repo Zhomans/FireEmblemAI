@@ -24,14 +24,16 @@ class fe_map(object):
         return rep
 
     def get_space(self, x, y):
-        #Check that the space is in bounds. If so, return it. Else, return None.
+        #Check if the space is in bounds. If so, return it. Else, return None.
         if(y < len(self.grid) and y >= 0 and x < len(self.grid[y]) and x >= 0):
             return self.grid[x][y]
         else:
             return None
 
 class terrain(object):
-    #Each space has a terrain, which affects several modifiers (defense, movement, and evasion). Terrains are represented by a name string.
+    #Each space has a terrain.
+    #Terrain affects several modifiers (defense, movement, and evasion).
+    #Terrains are represented by a name string.
     def __init__ (self, terrainType):
         self.terrainType = terrainType
         if (terrainType == 'dirt'):
