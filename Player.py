@@ -83,4 +83,3 @@ class player(object):
 			unit.attack_enemy(unit_to_attack)
             #add it to the list of acted units
 			self.actedUnits.append(unit)
-			print unit.name+" attacked "+unit_to_attack.name+" at "+str(unit_to_attack.space)+" from "+str(unit.space)
