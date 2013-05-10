@@ -1,3 +1,8 @@
+#FinalAI.py
+#Jazmin Gonzalez-Rivero, Zachary Homans, Elizabeth Mahon, Brendan Ritter
+#Artificial Intelligence, Olin College, Spring 13
+
+
 import math
 from feworld import *
 
