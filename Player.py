@@ -53,7 +53,7 @@ class player(object):
 		else:
 			return human_player(self, world)
 
-	def move_Unit(self, unit, world_map, new_location_x, new_location_y):
+	def move_Unit(self, unit, world_map, new_x, new_y):
 		#have the unit move and add it to the list of moved units
 		movable = 1
 		#go through the list of moved units and see if it is legal to move
@@ -62,7 +62,7 @@ class player(object):
 			print('error unit has already been moved')
 		#if you can move then move
 		if (movable == 1):
-			if (unit.move_unit(world_map.get_space(new_location_x, new_location_y)) == 0):
+			if (unit.move_unit(world_map.get_space(new_x, new_y)) == 0):
                 #add the unit to the list of moved units
 				self.movedUnits.append(unit)
 				return 1
