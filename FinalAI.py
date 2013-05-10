@@ -216,8 +216,7 @@ def computer_player(com, world, strat = "t"):
         com.actedUnits = com.units
     elif move_next==None and strat == "t":
         #tricky strategy: move just out of range of player units
-        #I am making the assumption right now that the closest enemy has the most important threat zone. 
-        #This is incorrect, example a pegasus knight 7 spaces away and a lord 6 spaces. pegasus is more of a threat.
+        
         #construct a no-go zone of spaces enemies can attack
         no_go = []
         for enemy in com.opponent.units:
@@ -276,6 +275,3 @@ def computer_player(com, world, strat = "t"):
         else:
             print "What the heck?"
         com.act_Unit(move_next[0], world, optimal_target)
-        if optimal_target not in com.opponent.units:
-            com.movedUnits = com.units
-            com.actedUnits = com.units
